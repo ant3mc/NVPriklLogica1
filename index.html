@@ -197,14 +197,34 @@ html, body {
   -webkit-hyphens: auto;
   hyphens: auto;
   hyphenate-limit-chars: 4 2 2;
-  hyphenate-limit-zone: 15%;
-  hyphenate-limit-lines: 7;
+  hyphenate-limit-zone: 1%;
+  hyphenate-limit-lines: 9;
 }
-/* Отступы: body обнуляем, article — 8px со всех сторон, справа 0 */
+/* Отступы: body обнуляем, article — 4px только слева, остальное 0 */
 body { margin: 0 !important; padding: 0 !important; }
 article {
-  padding: 8px 0 8px 8px !important;
+  padding: 0 0 0 4px !important;
   box-sizing: border-box;
+}
+/* Примечания, замечания, врезки, сноски: правый край как у обычного текста */
+article blockquote,
+article aside,
+article figure,
+article .note,
+article .notice,
+article .remark,
+article .callout,
+article .admonition,
+article .warning,
+article .tip,
+article .info,
+article .footnote,
+article [class*="note"],
+article [class*="remark"],
+article [class*="callout"],
+article [class*="admonition"] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
 }
 article, article p, article li, article dd, article dt,
 article blockquote, article td, article th, article figcaption,
@@ -218,6 +238,10 @@ pre, code, kbd, samp, var, tt,
 .katex, .katex-display, .math-display, .mermaid, .raw, .hljs {
   -webkit-hyphens: manual;
   hyphens: manual;
+}
+article p, article li, article dd, article blockquote p {
+  text-align: justify;
+  text-justify: inter-word;
 }</style></head>
 <body class="exported">
 <article id="content" class="markdown-body" lang="ru">

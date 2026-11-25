@@ -1,611 +1,605 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="light" data-dir="auto" style="--font-size:48.0px;--line-height:1.70;--font-family:'MdCustom', -apple-system, 'Roboto', 'Noto Sans', sans-serif;--max-width:none;"><head>
+<html lang="ru">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Глава 2. Простейшие высказывания</title>
+<meta name="theme-color" content="#FAF3E3">
+<title>Глава 3. Запись высказываний. Логические формулы</title>
 <style>
-/* Markdown Reader — document styles. Themes are CSS variables selected by <html data-theme="…">;
-   size / font / spacing / width come from inline custom properties set by the app (ReaderStyle). */
-
-:root, [data-theme="light"] {
-  --bg: #ffffff; --fg: #1f2328; --muted: #59636e; --link: #0969da; --border: #d1d9e0;
-  --code-bg: #f6f8fa; --code-fg: #1f2328; --quote: #59636e; --mark: #fff8c5; --stripe: #f6f8fa;
-  --note: #0969da; --tip: #1a7f37; --important: #8250df; --warning: #9a6700; --caution: #cf222e;
-  color-scheme: light;
-}
-[data-theme="dark"] {
-  --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --link: #4493f8; --border: #3d444d;
-  --code-bg: #151b23; --code-fg: #e6edf3; --quote: #9198a1; --mark: #bb800926; --stripe: #151b23;
-  --note: #4493f8; --tip: #3fb950; --important: #ab7df8; --warning: #d29922; --caution: #f85149;
-  color-scheme: dark;
-}
-[data-theme="amoled"] {
-  --bg: #000000; --fg: #e8e8e8; --muted: #9a9a9a; --link: #6cb6ff; --border: #2a2a2a;
-  --code-bg: #0e0e0e; --code-fg: #e8e8e8; --quote: #9a9a9a; --mark: #4d3d00; --stripe: #0a0a0a;
-  --note: #6cb6ff; --tip: #57c26a; --important: #b48cff; --warning: #e0a82e; --caution: #ff6a5f;
-  color-scheme: dark;
-}
-[data-theme="sepia"] {
-  --bg: #f4ecd8; --fg: #433422; --muted: #7a6650; --link: #8b4513; --border: #d8c9a8;
-  --code-bg: #ebe0c4; --code-fg: #433422; --quote: #7a6650; --mark: #f2d98b; --stripe: #efe5cc;
-  --note: #2f6690; --tip: #4f7a28; --important: #6e4a8e; --warning: #9a6a00; --caution: #a33a2a;
-  color-scheme: light;
-}
-[data-theme="solarized"] {
-  --bg: #fdf6e3; --fg: #586e75; --muted: #839496; --link: #268bd2; --border: #e3dcc6;
-  --code-bg: #eee8d5; --code-fg: #586e75; --quote: #839496; --mark: #f5e7b0; --stripe: #f6efd9;
-  --note: #268bd2; --tip: #859900; --important: #6c71c4; --warning: #b58900; --caution: #dc322f;
-  color-scheme: light;
-}
-
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+html { font-size: 48px; scrollbar-color: #0E6B5C #F3EAD3; }
 body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font-family: var(--font-family, sans-serif); font-size: var(--font-size, 16px);
-  line-height: var(--line-height, 1.6);
-  -webkit-tap-highlight-color: transparent;
-  -webkit-print-color-adjust: exact; print-color-adjust: exact;
-}
-.markdown-body {
-  max-width: var(--max-width, 48em); margin: 0 auto; padding: 16px 18px 56px;
-  overflow-wrap: break-word; word-wrap: break-word;
-}
-.markdown-body > :first-child { margin-top: 0 !important; }
-
-h1, h2, h3, h4, h5, h6 { margin: 1.5em 0 0.6em; font-weight: 600; line-height: 1.25; scroll-margin-top: 12px; }
-h1 { font-size: 2em; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
-h2 { font-size: 1.5em; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
-h3 { font-size: 1.25em; } h4 { font-size: 1em; } h5 { font-size: .875em; } h6 { font-size: .85em; color: var(--muted); }
-p, ul, ol, dl, table, pre, blockquote, .table-wrap, details { margin: 0 0 1em; }
-a { color: var(--link); text-decoration: none; }
-a:active { text-decoration: underline; }
-hr { height: .25em; padding: 0; margin: 1.5em 0; background: var(--border); border: 0; border-radius: 2px; }
-img, video, svg { max-width: 100%; height: auto; }
-img { border-radius: 4px; }
-img.broken {
-  display: inline-block; min-width: 6em; padding: .4em .6em; font-size: .85em; color: var(--muted);
-  border: 1px dashed var(--border); border-radius: 6px;
-}
-mark { background: var(--mark); color: inherit; padding: 0 .15em; border-radius: 3px; }
-kbd {
-  display: inline-block; padding: 0 .4em; font: .85em monospace; border: 1px solid var(--border);
-  border-bottom-width: 2px; border-radius: 5px; background: var(--code-bg);
-}
-ul, ol { padding-inline-start: 1.8em; }
-li + li { margin-top: .25em; }
-li > ul, li > ol { margin-bottom: 0; }
-
-/* GFM task lists */
-li:has(> input[type="checkbox"]) { list-style: none; }
-li > input[type="checkbox"] { margin: 0; margin-inline: -1.5em .45em; width: 1em; height: 1em; vertical-align: -0.12em; accent-color: var(--link); }
-
-blockquote { padding: 0 1em; color: var(--quote); border-inline-start: .25em solid var(--border); }
-blockquote > :last-child { margin-bottom: 0; }
-
-/* Code */
-code, pre, .raw { font-family: 'Roboto Mono', 'Droid Sans Mono', 'Noto Sans Mono', monospace; }
-:not(pre) > code {
-  padding: .15em .4em; font-size: 85%; background: var(--code-bg); color: var(--code-fg); border-radius: 6px;
-}
-pre {
-  position: relative; padding: 14px 16px; overflow-x: auto; font-size: 85%; line-height: 1.45;
-  background: var(--code-bg); color: var(--code-fg); border-radius: 8px; border: 1px solid var(--border);
-}
-pre code, pre code.hljs { padding: 0; background: transparent; font-size: 100%; display: block; overflow: visible; }
-.code-block { position: relative; margin: 0 0 1em; }
-.code-block > pre { margin: 0; padding-top: 34px; }
-.code-head {
-  position: absolute; top: 0; left: 0; right: 0; z-index: 1; display: flex; align-items: center;
-  justify-content: space-between; height: 30px; padding: 0 6px 0 14px; font: 12px sans-serif; color: var(--muted);
-}
-.copy-btn {
-  font: 12px sans-serif; color: var(--muted); background: transparent; border: 1px solid var(--border);
-  border-radius: 6px; padding: 3px 10px;
-}
-.copy-btn.done { color: var(--tip); border-color: var(--tip); }
-
-/* Tables */
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-table { border-collapse: collapse; border-spacing: 0; width: max-content; max-width: none; margin: 0; }
-.table-wrap > table { margin-bottom: 0; }
-th, td { padding: 6px 13px; border: 1px solid var(--border); vertical-align: top; }
-th { font-weight: 600; background: var(--stripe); }
-tr:nth-child(2n) td { background: var(--stripe); }
-
-/* Front matter card */
-.front-matter { margin: 0 0 1.5em; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: .88em; }
-.front-matter table { width: 100%; }
-.front-matter th, .front-matter td { border: 0; border-bottom: 1px solid var(--border); background: transparent !important; }
-.front-matter tr:last-child th, .front-matter tr:last-child td { border-bottom: 0; }
-.front-matter th { width: 30%; color: var(--muted); text-align: start; font-weight: 500; white-space: nowrap; }
-
-/* Callouts (GitHub alerts, Obsidian callouts) */
-.callout { --c: var(--note); border-inline-start-color: var(--c); color: var(--fg); padding: .5em 1em; }
-.callout-title { color: var(--c); font-weight: 600; margin-bottom: .4em; }
-.callout-title::before { display: inline-block; width: 1.3em; }
-.callout-note { --c: var(--note); } .callout-note .callout-title::before { content: "ℹ"; }
-.callout-tip { --c: var(--tip); } .callout-tip .callout-title::before { content: "💡"; }
-.callout-important { --c: var(--important); } .callout-important .callout-title::before { content: "❗"; }
-.callout-warning { --c: var(--warning); } .callout-warning .callout-title::before { content: "⚠"; }
-.callout-caution { --c: var(--caution); } .callout-caution .callout-title::before { content: "⛔"; }
-
-/* Math + diagrams */
-.math-display { display: block; overflow-x: auto; overflow-y: hidden; margin: 0 0 1em; padding: .2em 0; }
-span.math-display { margin: .5em 0; }
-.math-error { color: var(--caution); font-family: monospace; }
-.mermaid { margin: 0 0 1em; text-align: center; overflow-x: auto; }
-.mermaid svg { max-width: 100%; height: auto; }
-.mermaid-error { color: var(--caution); font-size: .85em; text-align: left; }
-
-/* Footnotes */
-.footnotes { font-size: .88em; color: var(--muted); border-top: 1px solid var(--border); margin-top: 2em; padding-top: 1em; }
-sup { line-height: 0; }
-
-details { border: 1px solid var(--border); border-radius: 8px; padding: .5em .9em; }
-summary { cursor: pointer; font-weight: 600; }
-
-/* .txt files and the "raw source" view */
-pre.plain, pre.raw {
-  white-space: pre-wrap; word-break: break-word; background: transparent; border: 0; padding: 0;
-  font-size: 92%; color: var(--fg); overflow: visible;
-}
-pre.plain { font-family: var(--font-family, sans-serif); font-size: 100%; line-height: var(--line-height, 1.6); }
-
-/* Text direction (Appearance > Text direction). Per-paragraph `dir` attributes are set by reader.js for
-   "auto" and "center"; "rtl" / "ltr" flip the whole document here. Code, formulas and diagrams stay LTR. */
-pre, code, .code-block, .katex, .katex-display, .mermaid, .math-display, kbd { direction: ltr; unicode-bidi: isolate; }
-pre, .code-block { text-align: left; }
-html[data-dir="rtl"] #content { direction: rtl; }
-html[data-dir="ltr"] #content { direction: ltr; }
-#content .tts-now { background: var(--mark); border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-html[data-dir="auto"] #content li[data-flip][dir="rtl"] { margin-left: -1.8em; margin-right: 1.8em; }
-html[data-dir="auto"] #content li[data-flip][dir="ltr"] { margin-right: -1.8em; margin-left: 1.8em; }
-html[data-dir="center"] #content :is(p, h1, h2, h3, h4, h5, h6, li, blockquote, td, th, dt, dd, summary, figcaption, .callout-title) { text-align: center; }
-html[data-dir="center"] #content :is(ul, ol) { list-style-position: inside; padding-inline-start: 0; }
-html[data-dir="center"] #content li > input[type="checkbox"] { margin-inline: 0 .45em; }
-html[data-dir="center"] #content blockquote { border-inline-start-width: 0; border-block-start: .25em solid var(--border); padding-top: .4em; }
-html[data-dir="center"] #content table { margin-inline: auto; }
-
-/* Find-in-page highlight is native; this is the flash after a TOC jump */
-.flash { animation: flash 1.2s ease-out; }
-@keyframes flash { from { background: var(--mark); } to { background: transparent; } }
-
-@media print {
-  .copy-btn { display: none; }
-  .markdown-body { max-width: none; padding: 0; }
-  pre, table, .mermaid, .math-display, img, blockquote { break-inside: avoid; }
-  h1, h2, h3, h4 { break-after: avoid; }
-  pre { white-space: pre-wrap; word-break: break-word; }
-  .table-wrap { overflow: visible; }
-}
-body.exported .markdown-body { padding-top: 32px; }
-
-pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
-  Theme: GitHub
-  Description: Light theme as seen on github.com
-  Author: github.com
-  Maintainer: @Hirse
-  Updated: 2021-05-15
-
-  Outdated base version: https://github.com/primer/github-syntax-light
-  Current colors taken from GitHub's CSS
-*/.hljs{color:#24292e;background:#fff}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#d73a49}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#6f42c1}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#005cc5}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#032f62}.hljs-built_in,.hljs-symbol{color:#e36209}.hljs-code,.hljs-comment,.hljs-formula{color:#6a737d}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#22863a}.hljs-subst{color:#24292e}.hljs-section{color:#005cc5;font-weight:700}.hljs-bullet{color:#735c0f}.hljs-emphasis{color:#24292e;font-style:italic}.hljs-strong{color:#24292e;font-weight:700}.hljs-addition{color:#22863a;background-color:#f0fff4}.hljs-deletion{color:#b31d28;background-color:#ffeef0}
-</style>
-<style data-hyphenizer="1">/* ==== Автопереносы: вставлено русификатором ==== */
-html, body {
-  -webkit-hyphens: auto;
-  hyphens: auto;
-  hyphenate-limit-chars: 4 2 2;
-  hyphenate-limit-zone: 1%;
-  hyphenate-limit-lines: 9;
-}
-/* Отступы: body обнуляем, article — 4px только слева, остальное 0 */
-body { margin: 0 !important; padding: 0 !important; }
-article {
-  padding: 0 0 0 4px !important;
-  box-sizing: border-box;
-}
-/* Примечания, замечания, врезки, сноски: правый край как у обычного текста */
-article blockquote,
-article aside,
-article figure,
-article .note,
-article .notice,
-article .remark,
-article .callout,
-article .admonition,
-article .warning,
-article .tip,
-article .info,
-article .footnote,
-article [class*="note"],
-article [class*="remark"],
-article [class*="callout"],
-article [class*="admonition"] {
-  margin-right: 0 !important;
-  padding-right: 0 !important;
-}
-article, article p, article li, article dd, article dt,
-article blockquote, article td, article th, article figcaption,
-article summary, article h1, article h2, article h3,
-article h4, article h5, article h6 {
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-/* Код, формулы, схемы — не переносим */
-pre, code, kbd, samp, var, tt,
-.katex, .katex-display, .math-display, .mermaid, .raw, .hljs {
-  -webkit-hyphens: manual;
-  hyphens: manual;
-}
-article p, article li, article dd, article blockquote p {
+  font-size: 1rem;
+  margin: 0 2px 0 4px;
+  line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
-}</style></head>
-<body class="exported">
-<article id="content" class="markdown-body" lang="ru">
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  background: linear-gradient(180deg, #FCF7EB 0%, #F8F0DD 100%);
+  color: #26221A;
+  font-family: system-ui, Roboto, "Segoe UI", "Noto Sans", sans-serif;
+}
+article { margin: 0; padding: 0; border: 0; max-width: none; width: auto; }
+p { margin: 0.5em 0; }
+.formula { margin: 0.5em 0; padding: 0; text-align: left; }
+.formula math { font-size: 1em; }
+.eq-num {
+  margin-left: 0.25em; white-space: nowrap;
+  color: #8F6400; font-size: .8em;
+  font-family: ui-monospace, "Roboto Mono", "Droid Sans Mono", "Courier New", monospace;
+}
+code {
+  hyphens: none;
+  font-family: ui-monospace, "Roboto Mono", "Droid Sans Mono", "Courier New", monospace;
+  font-size: .9em; font-style: normal;
+  background: #F3EAD3; color: #23407A;
+  padding: 0 5px; border-radius: 5px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.fx {
+  font-family: ui-monospace, "Roboto Mono", "Droid Sans Mono", "Courier New", monospace;
+  background: #F3EAD3; color: #23407A;
+  padding: 2px 8px; border-radius: 6px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.sym { font-family: ui-monospace, "Roboto Mono", "Droid Sans Mono", "Courier New", monospace; color: #23407A; }
+table { border-collapse: collapse; margin: 0.5em 0; font-size: .85em; }
+th, td { border: 1px solid #444; padding: 2px 8px; text-align: left; }
+thead th { background: #EFE4C8; }
+tbody th[scope="row"] { background: #F3EAD3; }
+tbody tr:nth-child(even) td { background: #F6EFDD; }
+caption { text-align: left; font-weight: bold; padding: 2px 0; color: #4A4436; font-size: .95em; }
+.note { font-style: italic; color: #6B6252; font-size: .94em; }
+.ed { border-left: 5px solid #D8CDB4; padding-left: 10px; }
+.overline-double {
+  text-decoration: overline;
+  text-decoration-style: double;
+  text-decoration-thickness: 1px;
+}
+.overline-single {
+  text-decoration: overline;
+  text-decoration-thickness: 1px;
+}
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0.5em 0;
+  scrollbar-color: #0E6B5C #F3EAD3;
+}
+.table-scroll:focus-visible { outline: 2px solid #444; outline-offset: 2px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+h1 {
+  font-size: 1.3rem; line-height: 1.25; margin: .5em 0 .6em;
+  text-align: left; hyphens: manual;
+  font-family: Georgia, "Noto Serif", serif; color: #1F3A5F;
+}
+h1 .kicker {
+  display: block; font-size: .5em; letter-spacing: .06em; text-transform: uppercase;
+  color: #8F6400; font-weight: 700; margin-bottom: .15em;
+  font-family: system-ui, Roboto, "Segoe UI", "Noto Sans", sans-serif;
+}
+h1::after {
+  content: ""; display: block; height: 7px; margin-top: .35em; border-radius: 4px;
+  background: linear-gradient(90deg, #0E6B5C, #2456C4, #7A3E9D, #BC3F1D, #8F6400);
+}
+h2 {
+  font-size: 1.12rem; line-height: 1.3; margin: 1.2em 0 .5em;
+  text-align: left; hyphens: manual;
+  font-family: Georgia, "Noto Serif", serif;
+  color: var(--acc, #26221A);
+  border-left: 10px solid var(--acc, #26221A);
+  padding-left: 12px;
+}
+ul { margin: .5em 0; padding-left: 1.1em; }
+li { margin: .3em 0; }
+.tv { font-family: ui-monospace, "Roboto Mono", "Droid Sans Mono", "Courier New", monospace; font-weight: 700; }
+.tv-t { color: #1E6E33; }
+.tv-f { color: #B3261E; }
+.agreement, .rule {
+  padding: 4px 10px; background: #F3EAD3; border-radius: 0 6px 6px 0;
+}
+.agreement { border-left: 6px solid #0E6B5C; }
+.rule { border-left: 6px solid #BC3F1D; }
+.exn {
+  font-family: ui-monospace, "Roboto Mono", "Droid Sans Mono", "Courier New", monospace;
+  font-weight: 700; color: #3F3D9E; font-size: .9em;
+}
+::selection { background: #0E6B5C; color: #FAF3E3; }
+:focus-visible { outline: 3px solid #2456C4; outline-offset: 2px; }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: #F3EAD3; }
+::-webkit-scrollbar-thumb { background: #0E6B5C; border-radius: 6px; border: 2px solid #F3EAD3; }
+::-webkit-scrollbar-thumb:hover { background: #BC3F1D; }
+</style>
+</head>
+<body>
+<article aria-labelledby="chapter-title">
 
-<p dir="ltr" data-ad="1"><strong>Обозначения в этом файле.</strong> Авторские сноски и замечания 17–26 (из Дополнения II) вставлены по смыслу в текст. Мои пометки идут как «Примеч. ред.» и авторскому тексту не принадлежат. Сохранены три авторских вида кавычек: “ ” — переносный смысл или переформулировка, ‘ ’ — слово как имя понятия, « » — точная цитата либо фольклор. Двойные буквы ℕ, ℤ, ℚ, ℝ, ℂ, 𝕍, 𝕃, ℙ — это N, Z, Q, R, C, V, L, P в авторском «прозрачном» шрифте. Моноширинный шрифт передаёт авторский рубленый (чисто формальные имена).</p>
-<hr>
-<h1 id="глава-2-простейшие-высказывания" dir="ltr" data-ad="1">Глава 2. Простейшие высказывания</h1>
-<h2 id="21-что-такое-высказывание" dir="ltr" data-ad="1">2.1 Что такое высказывание?</h2>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Высказывание</strong> — утверждение об объектах, имеющее однозначный, точно определённый смысл.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Это определение, разумеется, не математическое. С чисто математической точки зрения высказывание и объект — исходные понятия, однако содержательно мы всё равно должны их пояснить.</p>
-<p dir="ltr" data-ad="1">Примерами высказываний служат следующие утверждения:</p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>(2.1)</strong> 2 × 2 = 4</li>
-<li dir="ltr" data-ad="1"><strong>(2.2)</strong> 2 × 2 = 5</li>
-<li dir="ltr" data-ad="1"><strong>(2.3)</strong> sin π = 0</li>
-<li dir="ltr" data-ad="1"><strong>(2.4)</strong> Волга впадает в Каспийское море.</li>
-<li dir="ltr" data-ad="1"><strong>(2.5)</strong> Волга впадает в Балтийское море.</li>
-<li dir="ltr" data-ad="1"><strong>(2.6)</strong> Кама впадает в Каспийское море.</li>
-<li dir="ltr" data-ad="1"><strong>(2.7)</strong> Для всякого натурального числа найдётся превосходящее его простое число.</li>
-<li dir="ltr" data-ad="1"><strong>(2.8)</strong> 13 января 1995 г. в 11.35 на перекрёстке улиц Пушкинской и Советской автомобилем № CUR2171RUS был сбит гр. Иванов Иван Иванович.</li>
-<li dir="ltr" data-ad="1"><strong>(2.9)</strong> Все волки — млекопитающие.</li>
-<li dir="ltr" data-ad="1"><strong>(2.10)</strong> 13 января 1995 г. в 11.35 на перекрёстке улиц Пушкинской и Советской автомобилем “Тойота”, принадлежащим гр. Хасбулатову, находившемуся в состоянии опьянения средней степени, был сбит гр. Иванов Иван Иванович, который получил тяжкие телесные повреждения.</li>
-<li dir="ltr" data-ad="1"><strong>(2.11)</strong> Не только Иванов, но и Петров прогулял сегодняшнюю лекцию.</li>
-<li dir="ltr" data-ad="1"><strong>(2.12)</strong> По словам Сталина, Троцкий был врагом СССР.</li>
-<li dir="ltr" data-ad="1"><strong>(2.13)</strong> Большинство членов собрания проголосовало за первый вариант решения.</li>
-<li dir="ltr" data-ad="1"><strong>(2.14)</strong> Простых чисел бесконечно много.</li>
-<li dir="ltr" data-ad="1"><strong>(2.15)</strong> Геракл убил немейского льва.</li>
-<li dir="ltr" data-ad="1"><strong>(2.16)</strong> У русалок зелёные волосы.</li>
-<li dir="ltr" data-ad="1"><strong>(2.17)</strong> У нынешнего российского императора красный нос.</li>
-<li dir="ltr" data-ad="1"><strong>(2.18)</strong> Рим расположен на реке Тибр, основан, согласно Титу Ливию, Ромулом и находится под особым покровительством Юпитера.</li>
-</ul>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред. (к 2.11).</strong> Единственное число «прогулял» нормативно и правке не подлежит: при союзе «не только… но и» сказуемое обычно согласуется с ближайшим подлежащим (Розенталь, § 190, п. 2.4б).</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Некоторые высказывания являются истинными, некоторые — ложными. Например, (2.1), (2.3), (2.4) — безусловно истинные высказывания, (2.2), (2.5) — безусловно ложные.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> В оригинале здесь «(2.1), (2.3), (2.7)». Судя по следующему абзацу, где (2.7) названо теоремой Евклида, требующей доказательства, имелось в виду (2.4). Исправление предположительное.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Истинность либо ложность высказывания не всегда легко установить. Например, высказывание (2.7) требует доказательства и называется теоремой Евклида. Как ни странно, могут возникнуть сомнения даже по поводу высказывания (2.4), традиционно относящегося к числу трюизмов, общеизвестных истин. В самом деле, по принятому в географии определению при слиянии двух рек притоком считается та, которая несёт меньше воды, а годовой сток Волги при слиянии с Камой почти в два раза меньше. Так что, возможно, правильней было бы считать истинным высказывание (2.6). Нигде так долго, прочно и безнаказанно не могут существовать ошибки, как среди трюизмов.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 1 (автор).</strong> Порой даже кажется, что «общепринятая истина всегда ошибочна» (приписывается Бертрану Расселу).</p>
-</blockquote>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> По современным данным, расход Камы при слиянии около 4300 кубометров в секунду, Волги — около 3100: разница примерно в 1,4 раза, а не «почти в два». Кроме того, водность — важный, но не единственный критерий выделения главной реки: учитываются также длина, площадь бассейна, направление долины и историческая традиция.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Зачастую высказывания говорят не о единичном факте, а о совокупности утверждений, например (2.13), (2.9), (2.14), объединяя ряд фактов в единое утверждение. Такие высказывания называются <strong>общими</strong>.</p>
-<p dir="ltr" data-ad="1">Порою вопрос об истинности или ложности высказываний переносится из нашего мира в какой-то другой, так называемый ‘возможный’ мир.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 17.</strong> Математику тоже можно рассматривать как возможный мир, поскольку её понятия имеют к “действительности” весьма косвенное отношение. А уж физика и подавно занимается невозможными явлениями, поскольку, например, ни одной инерциальной системы координат, в которой выполнены три закона Ньютона, в природе просто нет и быть не может. “Сотворение” новых возможных миров (часто называемых виртуальными) — сейчас почти что рутинная сторона деятельности информатиков и СМИ. Важно всё время отличать их от реального и не уходить в них. Например, все признают истинным утверждение о Геракле, но ведь на самом деле неизвестно, был ли он и что делал… Причина такого: для нас некоторые возможные миры, например Библии, сказок, греческих мифов, имеют почти такую же реальность, как и настоящий.</p>
-<p dir="ltr" data-ad="1">А вообще, что такое “настоящий” мир? Реален ли он? Если глубоко разобраться, то ответы могут быть самыми различными. В частности, Платон и буддисты уверены, что этот мир нереален, а реален некий “идеальный” мир, бледным слепком с которого является наш. Те, кто испытывал состояние творческого озарения, зачастую склонны согласиться с ними.</p>
-<p dir="ltr" data-ad="1"><strong>(АПБ)</strong> Традиционно настоящий мир считается реальным по определению. На мой взгляд, стоит отличать истинный мир от реального (и оба их отличать от миров наваждений).</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Иногда высказывание относится не столько к сообщаемому акту, сколько к его оценке. Например, утверждение (2.12) не зависит от “реальной” истинности данного факта, но может быть строго доказано либо опровергнуто анализом исторических документов, касающихся того, что говорил и делал Сталин.</p>
-<p dir="ltr" data-ad="1">А в сложном высказывании могут быть перемешаны и реальность, и возможные миры, и оценки; см., например, (2.18).</p>
-<p dir="ltr" data-ad="1">В естественном языке можно сделать следующие замечания о высказываниях.</p>
-<p dir="ltr" data-ad="1"><strong>Атомарными</strong>, элементарными высказываниями естественно считать сообщающие единичный факт. Атомарные высказывания могут быть достаточно сложными с точки зрения грамматики, например (2.8), а сложные — достаточно простыми, например (2.9). Сложные высказывания образуются из атомарных применением операций трёх видов.</p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>Логические связки</strong> применяются к высказываниям и в результате дают новое высказывание. Например, это “не только…, но и…” или просто конструкция сложносочинённого предложения, как в (2.18).</li>
-<li dir="ltr" data-ad="1"><strong>Модальности</strong> применяются к высказываниям и изменяют наше отношение к ним. Например, модальностью является “По словам Сталина…”.</li>
-<li dir="ltr" data-ad="1"><strong>Кванторные конструкции (кванторы)</strong> применяются к совокупности однородных (отличающихся лишь значениями некоторых параметров) высказываний либо выражений и дают единое высказывание либо выражение, не зависящие от упомянутых выше параметров. Например, таковы “Большинство…”, “Все…”. Часто кванторные конструкции подразумеваются, как, например, в (2.16).</li>
-</ul>
-<p dir="ltr" data-ad="1">Во многих естественных языках (особенно в русском) модальности, оценки связаны почти с каждым словом. Например, говоря “и A, и B”, подчёркивают равноправие двух утверждений, а утверждением “не только A, но и B”, наоборот, указывают на предпочтительность одного из них.</p>
-<p dir="ltr" data-ad="1">В естественном языке имеется множество похожих на высказывания предложений той же грамматической структуры, которые тем не менее принципиально не могут иметь чёткой и однозначной интерпретации. Они называются <strong>квазивысказываниями</strong>.</p>
-<p dir="ltr" data-ad="1">Квазивысказываниями являются утверждения о субъективных чувствах, скажем “Саша любит Машу”. Беда даже не в том, что понятие любви неточно. Оно, прежде всего, неформализуемо, то есть каждая его формализация немедленно вызывает к жизни контрпримеры.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 18.</strong> Изобретение таких контрпримеров в исторические моменты, когда возникает практически общепринятое уточнение понятия любви, является одним из излюбленных занятий литераторов и поэтов. Впрочем, так называемая “творческая интеллигенция” во всём мире очень любит разрушать устоявшиеся системы взглядов, совершенно не задумываясь о последствиях, почему И. А. Крылов и поместил в аду писателя в худшие условия, чем разбойника.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Далее, оно принципиально непроверяемо, поскольку относится к внутреннему миру человека и понимается разными людьми совершенно неодинаково.</p>
-<p dir="ltr" data-ad="1">Тем не менее методы логики, и даже математической логики, разработанные для высказываний, интенсивно применяются к квазивысказываниям (прежде всего в современной философии и “искусственном интеллекте”).</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 4 (автор).</strong> Это чисто американское вульгарно-рекламное название стало практически термином для обозначения целой отрасли в современной информатике. В дальнейшем мы часто будем пользоваться принятым для него сокращением ИИ.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Да и мы будем интенсивно пользоваться квазивысказываниями в наших примерах и упражнениях.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 19.</strong> Есть ещё одна область, где никак не обойтись без квазивысказываний. Оценочные утверждения почти всегда квазивысказывания. Например, говорят, что данный результат сильный, ценный, красивый… Они являются высказываниями, лишь когда фиксированы легко проверяемые критерии оценки. Но после этого встречающиеся в них понятия превращаются в термины, а смысл получившегося строгого высказывания может оказаться бесконечно далёк от имевшегося в виду при содержательной формулировке (например, оценка интеллектуальности человека по коэффициенту интеллекта IQ, измеряемому стандартной системой тестов; оценка эффективности вуза или учёного по системе “объективных критериев”, придуманных не имеющими никакого отношения к практике чиновниками из министерства).</p>
-<p dir="ltr" data-ad="1">По данной причине необходимо чётко понимать, что встречающиеся в книге оценочные утверждения — квазивысказывания, и они не требуют дополнительных комментариев по поводу субъективности (такие комментарии могут быть даже вредны, поскольку создают иллюзию объективности большинства оценок).</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Возникает вопрос: почему же мы, прекрасно осознавая неприменимость, вообще говоря, традиционной математической логики к этому классу предложений, применяем её? На это есть две причины.</p>
-<p dir="ltr" data-ad="1">Во-первых, почти любое применение на практике строго доказанного математического результата есть выход за границы, в которых он доказан. Скажем, применяя действительные числа, опираемся на предположение о непрерывности измеряемой величины, а до сих пор неясно, непрерывно ли наше пространство. В таких случаях стыдливо говорят, что точные методы математики применяются на практике приближённо.</p>
-<p dir="ltr" data-ad="1">Опыт такого “приближённого” применения показал, что более устойчивыми при выходе за рамки обоснований являются преобразования, в особенности эквивалентные, математических выражений. В логике можно строго обосновать: многие из развиваемых в общепринятой, классической, логике преобразований высказываний применяются далеко за её пределами. Поэтому есть серьёзные основания ожидать, что корректно проведённое преобразование квазивысказываний не подведёт нас. Даже для сложных математических преобразований такая надежда остаётся и часто оправдывается. Но не менее часто и подводит.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 20.</strong> Например, вся гибельная для нынешней цивилизации философия утилитаризма основывается на опровергнутом маркизом Кондорсе ещё до её возникновения предположении, что человеческие предпочтения можно мерить числами.</p>
-<p dir="ltr" data-ad="1">Маркиз Кондорсе был выдающимся прикладным математиком и либеральным общественным деятелем XVIII века. Все биографы отмечают его исключительное чувство чести и собственного достоинства, его благородство в лучшем смысле этого слова, чем он в корне отличается от нынешних либералов. Во время революции он стал одним из лидеров “партии” жирондистов, став тем самым на максимально радикальную из допустимых для честного и разумного человека позиций, и погиб в тюрьме во время якобинского террора (видимо, покончив с собой).</p>
-<p dir="ltr" data-ad="1">Кондорсе стал одним из основателей математической статистики. Но он заодно показал границы применения теоретико-вероятностных методов и числовых оценок вообще, открыв то, что часто называют парадоксом предпочтений: человек вполне может предпочитать A ≻ B, B ≻ C, но при этом C ≻ A.</p>
-<p dir="ltr" data-ad="1">Таким образом, человеческие предпочтения в принципе нельзя оценивать числами. Пример Пирса, одного из основателей утилитаризма, показывает (как и пример с ковидом), что даже исключительно интеллектуальные люди могут поддаваться иллюзиям.</p>
-</blockquote>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред. (к замечанию 20).</strong> Четыре уточнения.</p>
-<ol dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">Знак ≻ восстановлен: в извлечённом тексте он утрачен. Читать «A предпочтительнее B, B предпочтительнее C, но C предпочтительнее A».</li>
-<li dir="ltr" data-ad="1">Парадокс Кондорсе — о цикличности <strong>коллективного</strong> ранжирования при транзитивных индивидуальных предпочтениях. Из него не следует, что предпочтения отдельного человека нельзя измерять числами.</li>
-<li dir="ltr" data-ad="1">Хронология: Бентам — 1780-е годы, Кондорсе — 1785. Парадокс появился после возникновения утилитаризма, а не до него.</li>
-<li dir="ltr" data-ad="1">Ч. С. Пирс — один из основоположников <strong>прагматизма</strong> и семиотики (так он и назван в подписи к рис. 3 во Введении), а не утилитаризма; утилитаризм Бентама и Милля он критиковал.</li>
-</ol>
-<p dir="ltr" data-ad="1">Отсылка «как и пример с ковидом» ведёт к замечанию 14 Дополнения II (к стр. 9): на заседании учёного совета профессор возразила автору «Но ведь умереть можно!», получила ответ «Обязательно умрёте, потому что родились» и отреагировала истерикой. Автор komentирует это как пример того, как логическое невежество облегчает манипуляцию очень умными людьми.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Во-вторых, квазивысказывания через посредство модальностей завязаны в единый узел с высказываниями. ‘Саша заявил, что он любит Машу’ — уже высказывание, а ‘Мне кажется, что Волга впадает в Каспийское море’ — квазивысказывание.</p>
-<p dir="ltr" data-ad="1">Ещё более коварно то, что при малейшем уточнении понятий фраза может стать либо высказыванием, либо квазивысказыванием. Один из примеров этого — в упражнениях.</p>
-<h3 id="упражнения-к--21" dir="ltr" data-ad="1">Упражнения к § 2.1</h3>
-<p dir="ltr" data-ad="1">Выделите высказывания и квазивысказывания.</p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>2.1.1.</strong> У меня одна рука.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.2.</strong> У меня расстройство желудка.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.3.</strong> У меня повышенное давление.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.4.</strong> У меня болит спина.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.5.</strong> У меня нет денег.</li>
-</ul>
-<p dir="ltr" data-ad="1">В нижеприведённых предложениях выделите логические связки, модальности и кванторы.</p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>2.1.6.</strong> (ШБ1) Каждая программа содержит ошибку.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.7.</strong> (ШБ2) Если программа не содержит ошибок, то неверен применённый метод.</li>
-</ul>
-<p dir="ltr" data-ad="1">Эти два утверждения известны в русском программистском фольклоре как 1-я и 2-я аксиомы Шуры-Буры.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 21.</strong> М. Р. Шура-Бура — профессор МГУ и один из основоположников русской программистской культуры. Автор слышал их ещё в 1966 г. как давно известные максимы, которыми старшекурсники МГУ наставляли зелёных новичков. Третья аксиома звучит следующим образом:</p>
-<p dir="ltr" data-ad="1"><strong>(ШБ3)</strong> Если программа на самом деле полностью и абсолютно правильна, она никому не нужна.</p>
-<p dir="ltr" data-ad="1"><strong>(АПБ)</strong> М. Р. Шура-Бура, как он сам подтвердил, никогда не употреблял эти три высказывания вместе, пока не услышал их от автора настоящей книги. Более того, он заявил, что третье высказывание на самом деле — принадлежащее автору следствие из первых двух его утверждений.</p>
-</blockquote>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>2.1.8.</strong> По словам преподавателя, у студента Канторовича в каждой программе не менее десяти ошибок.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.9.</strong> Завтра взойдёт Солнце, если только не будет светопреставления.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.10.</strong> Как мне сообщила Маша, наш профессор собирается завалить на экзамене не менее половины группы.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.11.</strong> Большинство избирателей проголосовало за Уткина.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.12.</strong> Мне кажется, что Иванов думает, что я намерен подложить ему свинью.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.13.</strong> Мне передали, что Иванов думает, что я намерен подложить ему свинью.</li>
-<li dir="ltr" data-ad="1"><strong>2.1.14.</strong> Почему высказывание (2.10) уже сложное, в отличие от (2.8)?</li>
-</ul>
-<h2 id="22-математическая-интерпретация-высказываний" dir="ltr" data-ad="1">2.2 Математическая интерпретация высказываний</h2>
-<p dir="ltr" data-ad="1">Мы не будем углубляться в содержательное обсуждение того, что есть истина и что есть ложь. В математике достаточно принять, что есть исходные, неопределяемые понятия истина и ложь, которые могут быть значениями высказываний.</p>
-<p dir="ltr" data-ad="1"><strong>Истинностными (или логическими) значениями</strong> называются такие математические объекты, которые могут быть значениями высказываний.</p>
-<p dir="ltr" data-ad="1">Истину будем обозначать ⊤, ложь — ⊥.</p>
-<p dir="ltr" data-ad="1">Истина и ложь — единственные общепризнанные истинностные значения. Как только пытаются предложить другие значения, например “неизвестность”, сразу натыкаются на возражения типа: степеней неизвестности много, следовательно, она сама по себе не является логическим значением.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 22.</strong> Это не означает, что невозможно представить через логические значения логическую систему, включающую неизвестность. Но тогда мы подменяем, огрубляя, само понятие неизвестности, а поскольку огрублять его можно разными способами, делая акцент на разных сторонах незнания либо ошибки, таких формализаций оказывается несколько, многие из них разумны, так что часто выбор предпочтительной системы нелёгок…</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Поэтому, продолжая выявление и уточнение используемых в языке математики понятий, то есть процесс математической формализации этого языка, естественно приходим к следующему:</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Соглашение 1.</strong> Единственные логические значения: истина и ложь, обозначающиеся 1 и 0 либо ⊤ и ⊥ соответственно.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Сколь бы рискованным ни казалось на первый взгляд соглашение 1, оно следует математической практике: проверка математического высказывания состоит в выяснении, истинно оно или ложно.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 23.</strong> Базируясь на этом соглашении и на его обосновании, можно высказать несколько общих мыслей о формализации. Рискованность — черта, присущая любой хорошей формализации. Формализуя, неизбежно обедняют исследуемый объект, отвлекаются от многих его черт, чтобы успешнее работать с оставшимися. При этом мы должны всё время помнить о стоящей задаче. Аналогично, художник, рисуя карикатуру на человека, подчёркивает черты, соответствующие его сущности и поставленной цели. Если он забывает о сущности, увлекаясь целью, карикатура превращается в пасквиль, а если забывает о цели, карикатура становится безобидным дружеским шаржем. Формализация должна быть талантливой карикатурой на действительность, а не её фотографией. Лишь тогда она помогает кое-что понять. В частности, известно, что узнать незнакомого человека по хорошей карикатуре легче, чем по фотографии.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Продолжая в том же ключе, целесообразно принять ещё одно соглашение.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Соглашение 2.</strong> Логическое значение сложного утверждения зависит лишь от логических значений его компонент, а не от смысла этих компонент.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Подобные гипотезы являются характерной чертой математизации, при которой общепринято отвлечение от качественных различий рассматриваемых объектов, чтобы яснее выделить количественные. Уже понятие натурального числа получается абстрагированием от различий между такими вещами, как два пирожка, два окурка или два студента.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 24.</strong> Как сказал китайский философ Чжуан-цзы, когда его спросили, где дао: «В небе и в земле», а когда потребовали более близкого и конкретного примера, он заявил: «В моче и в кале». Если вы стремитесь стать настоящими информатиками, вам нужно уметь сопоставлять то, что обычные люди стесняются сопоставлять, поднимать неприличные вещи до уровня земли и неба, а “чистейшие” теоретические или же очень привлекательно звучащие принципы опускать до того же, до чего опустил Чжуан-цзы.</p>
-</blockquote>
-<h2 id="23-предметы-и-унивёрс-термы" dir="ltr" data-ad="1">2.3 Предметы и унивёрс. Термы</h2>
-<p dir="ltr" data-ad="1">Любое математическое утверждение в конечном счёте говорит о предметах (объектах). В приведённых выше примерах (2.1)–(2.10) объектами являются, в частности, 2, 2 · 2, Волга, Каспийское море, натуральные числа. Каждая математическая теория имеет свою предметную область, или <strong>унивёрс</strong> (унивёрсум), — совокупность всех предметов, которые она изучает.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>(2.19)</strong> Унивёрсом теории чисел является множество натуральных чисел, а её объектами — сами натуральные числа.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Математическая теория не обязательно имеет один унивёрс. В некоторых случаях теории бывают <strong>многосортными</strong>: объекты делятся на типы, или сорта, и для каждого сорта задаётся свой унивёрс.</p>
-<p dir="ltr" data-ad="1">В современном программировании, а также в языках искусственного интеллекта и представления знаний именно этот случай (многосортность) является наиболее распространённым, и не всегда многосортность можно в принципе свести к одному унивёрсу.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>(2.20)</strong> В геометрии изучаются геометрические фигуры. При формализации их естественно разделить на сорта точек, линий, плоскостей, треугольников и т. п. и для каждого сорта завести свой унивёрс.</p>
-</blockquote>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>(2.21)</strong> В математическом анализе естественно с самого начала выделить два сорта объектов: действительные числа и их функции — и, соответственно, два унивёрса: унивёрс чисел и унивёрс функций.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Для иллюстраций часто будет использоваться “теория”, в которой объектами являются живые существа, а унивёрсом — вся их совокупность, и “теория”, в которой объектами являются люди, а унивёрсом — человечество.</p>
-<p dir="ltr" data-ad="1">Простейшие из выражений, обозначающих предметы, — <strong>константы</strong>, то есть имена конкретных предметов. Например, константами служат числа 2, −5, 17, π, 1.44 и т. д. Константами могут служить и собственные либо вводимые нами имена, например ‘<code>Ваня</code>’.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 11 (автор).</strong> В данном случае, как показывает применённый нами шрифт, имя ‘Ваня’ теряет связь с реальным объектом, на который оно указывает, и становится чисто формальным обозначением.</p>
-<p dir="ltr" data-ad="1"><em>(В оригинале имя набрано рубленым шрифтом; здесь он передан моноширинным.)</em></p>
-</blockquote>
-<p dir="ltr" data-ad="1">Считается, что для каждой константы однозначно задан предмет, ею обозначаемый. Таким образом, в математической модели необходимо строго следить, чтобы любое собственное имя обозначало свой предмет, в отличие от обычной жизни, где имена могут быть неоднозначны.</p>
-<p dir="ltr" data-ad="1">В любой науке, особенно в информатике и математике, стремятся к систематизации обозначений, хотя бы в рамках одной работы.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 25.</strong> В общем случае добиться согласованности не удаётся даже для самых элементарных понятий. Каждая научная школа держится за свою терминологию, часто крепче, чем за свои взгляды. Поэтому всё время упоминаются синонимы, которыми данное понятие обозначается в других работах. Иногда эти синонимы путают между собой: например, то, что одни математики называют “функционалом”, другие называют “оператором”, и наоборот. Чтобы обилие синонимов не столь раздражало, стоит запомнить важное правило: чем больше у объекта разных имён, тем он важнее.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Для каждой константы указывается сорт, которому она принадлежит. Так, например, описываются имена в почти всех языках программирования. Языки, где нет описаний типов каждого встречающегося имени, остались как редкая экзотика (Brainfuck, JSON, YAML). Но в некоторых языках типы могут измениться в ходе исполнения (JavaScript, Python, PHP), что в логике категорически недопустимо.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Два уточнения. JSON и YAML — форматы представления данных, а не языки программирования. В JavaScript, Python и PHP типизация динамическая: тип самого объекта не меняется, меняется привязка имени к значению.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Столь же просты с виду и <strong>переменные</strong>, например x, y… Но для переменной неизвестен предмет, который она обозначает: в принципе она может обозначать какой угодно предмет из нашего унивёрса. Например, если наш унивёрс — люди, то x может обозначать в данный момент любого конкретного человека. Чтобы рассуждения не стали ошибочными, нужно следить, чтобы однажды выбранное значение x далее внутри данного рассуждения не изменялось; как говорят, оно должно быть <strong>фиксированным</strong>.</p>
-<p dir="ltr" data-ad="1">Если имеется несколько сортов объектов, то переменные разных сортов должны чётко различаться. Например, можно принять, что i, j, k, l, m, n — переменные, значениями которых служат целые числа, а x, y, z — переменные, значениями которых служат действительные числа.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 13 (автор).</strong> Этот список взят из второго исторически языка программирования FORTRAN (первым был язык Конрада Цузе Plankalkül [168]).</p>
-<p dir="ltr" data-ad="1"><em>[168] K. Zuse. Der Plankalkül. R. Oldenbourg Verlag, München — Wien, 1976. 288 p. ISBN 978-3-486-21288-4.</em></p>
-</blockquote>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> «Второй исторически» — спорно: между Plankalkül (1940-е, не был реализован) и Фортраном (1957) появились Short Code, A-0, Autocode, Speedcoding. Точнее: Фортран — первый массовый язык высокого уровня. Правило «i…n — целые» действительно оттуда.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Чтобы был неограниченный запас имён переменных, часто пользуются индексами, как в z₅.</p>
-<p dir="ltr" data-ad="1">Более сложные выражения образуются применением символов операций к более простым. <strong>Операция</strong>, именуемая символом, применяется к предметам и в результате даёт также предмет. Например, символу + сопоставляется операция над числами, дающая по двум числам их сумму. Если заданы обычные арифметические операции, то ((x − 17) · z) и 2eʸ — выражения (во втором из них знак умножения · опускается, а операция возведения в степень обозначается, как обычно в математике, тем, что показатель степени поднимается над строкой).</p>
-<p dir="ltr" data-ad="1">Разнобой в обозначении операций неудобен для точных определений. Для единообразия n-местную операцию f, применённую к выражениям t₁, …, tₙ, будем обозначать f(t₁, …, tₙ). Такую форму записи называют <strong>функциональной</strong>. Общепринятые символы операций, подобные +, /, обычно записываются между своими операндами, так что x + y можно рассматривать как переформулировку функциональной записи +(x, y).</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 14 (автор).</strong> Именно так трактуются операции, например, в языке Prolog.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Для каждой операции чётко указываются типы аргументов и результата. Например, в операции ⁿ√x число n — натуральное, x — действительное, значение её также действительное число.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Нужна оговорка: n ≥ 1, а при чётных n ещё и x ≥ 0. При чётном n и отрицательном x действительного значения нет, при n = 0 операция не определена.</p>
-</blockquote>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Выражение, обозначающее предмет, называется термом.</strong></p>
-</blockquote>
-<p dir="ltr" data-ad="1">Операции называются ещё <strong>функциональными символами</strong>, или просто функциями.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Терминологическая непоследовательность автора: для предикатов в § 2.4 строго различаются имя и обозначаемое им отношение, а операции здесь без оговорок отождествляются с функциями.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">В заключение укажем ещё три способа записи операций, применяющиеся в современной информатике и математике.</p>
-<p dir="ltr" data-ad="1">В языках функционального программирования и базирующихся на функциональном подходе теоретических работах часто f(x₁, …, xₙ) пишется как список <code>(f x1 ... xn)</code>, первый член которого считается операцией, а остальные — её аргументами.</p>
-<p dir="ltr" data-ad="1">В логике и в алгебре, когда для каждой операции однозначно задано число аргументов, скобки порою опускают и записывают x² + 2xy + y² как <code>+ + * x x * * 2 x y * y y</code> или, ‘наоборот’, <code>x x * 2 x * y * + y y * +</code>. Такой способ записи называют <strong>польской записью</strong> (соответственно прямой и обратной, или префиксной и постфиксной).</p>
-<p dir="ltr" data-ad="1">Постфиксной записи соответствует списочная форма представления, где функция стоит на последнем месте. В наше время запись в виде списков распространяется всё шире, а польская запись постепенно теряет позиции.</p>
-<h3 id="упражнения-к--23" dir="ltr" data-ad="1">Упражнения к § 2.3</h3>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>2.3.1.</strong> Перепишите в функциональной форме выражения:</p>
-<ol dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">x + y;</li>
-<li dir="ltr" data-ad="1">x² + 2xy + y²;</li>
-<li dir="ltr" data-ad="1">√2 · sin x;</li>
-<li dir="ltr" data-ad="1">(x + y)/(2 + z).</li>
-</ol>
-</li>
-<li dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>2.3.2.</strong> Перепишите в обычном виде выражения, записанные в функциональной форме:</p>
-<ol dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><code>cos(√(+(×(x, x), ×(y, y))))</code>;</li>
-<li dir="ltr" data-ad="1"><code>×(+(x, ×(y, z)), +(u, v))</code>;</li>
-<li dir="ltr" data-ad="1"><code>/(×(x, y), ×(x, z))</code>;</li>
-<li dir="ltr" data-ad="1"><code>/(×(2, 2), 100)</code>.</li>
-</ol>
-</li>
-</ul>
-<h2 id="24-предикаты-и-элементарные-формулы" dir="ltr" data-ad="1">2.4 Предикаты и элементарные формулы</h2>
-<p dir="ltr" data-ad="1">Чтобы образовать из предметов высказывание, нужно их соединить отношением. <strong>n-местное отношение</strong> — операция, сопоставляющая n предметам высказывание.</p>
-<p dir="ltr" data-ad="1">Например, “=” — двуместное отношение, сопоставляющее двум числам x и y высказывание x = y. При подстановке 2 и 2 получается истинное высказывание 2 = 2, а при подстановке 2 и 5 — ложное 2 = 5.</p>
-<p dir="ltr" data-ad="1">“… — положительное число” — одноместное отношение, сопоставляющее числу 5 истинное утверждение “5 — положительное число”.</p>
-<p dir="ltr" data-ad="1">“… лежит между … и …” — трёхместное отношение, сопоставляющее изображённым на рис. 2.1 трём точкам M, N, Q истинное утверждение “M лежит между N и Q”, а K, N, Q — ложное высказывание “K лежит между N и Q”.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Рис. 2.1. Четыре точки.</strong> Точки расположены на прямой слева направо в порядке: N, M, Q, K.</p>
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Отсюда видно соглашение о порядке аргументов: в записи H(x, y, z) первым стоит <strong>средняя</strong> точка, то есть «x лежит между y и z». Многоточия в двух шаблонах отношений восстановлены: в извлечённом тексте они утрачены.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">В “теории человеческих отношений” Саша — объект, а “Саша мне нравится” — (квази)высказывание.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>(2.22)</strong> “Любить” — двуместное отношение, которое сопоставляет паре (Ромео, Джульетта) истинное (квази)высказывание, а паре (Демон, Тамара) — ложное, и т. д.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">В математике чаще всего встречаются одноместные и двухместные отношения. Двухместные отношения обычно записываются между своими аргументами, например 4 &lt; 7, x² + 2x + 1 &gt; 0 и т. д. Одноместные отношения в математике часто записываются при помощи символа ∈ и символа для множества объектов, обладающих данным свойством.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>(2.23)</strong> Утверждение «π — действительное число» записывается π ∈ ℝ, где ℝ — обозначение для множества действительных чисел.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">В логике для единообразия пользуются записью P(t₁, …, tₙ), чтобы обозначить высказывание, образованное применением n-местного отношения P к предметам t₁, …, tₙ. Символ P, изображающий отношение, называется <strong>предикатом</strong>. ‘Предикат’ и ‘отношение’ соотносятся как имя и предмет, им обозначаемый. Но в математике эти два понятия употребляются почти как синонимы. В логических материалах будем применять строгий термин ‘предикат’, а в конкретных приложениях, когда это вошло в математическую традицию, использовать и слово ‘отношение’ (например, говорить об отношении ‘&gt;’ в формуле a &gt; b).</p>
-<p dir="ltr" data-ad="1">В стандартной записи 2 = 4 выглядит следующим образом: <code>=(2, 4)</code>.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Вероятно, вместо «в стандартной записи» должно быть «в функциональной записи» (§ 2.3). Само равенство 2 = 4 ложно — оно взято лишь как образец формы записи.</p>
-</blockquote>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Элементарные формулы</strong> суть P(t₁, …, tₙ), где P — n-местный предикат, t₁, …, tₙ — термы.</p>
-</blockquote>
-<p dir="ltr" data-ad="1">В обычной математике элементарные формулы называются просто формулами.</p>
-<p dir="ltr" data-ad="1">Как и для операций, для отношений чётко указывается сорт каждого аргумента.</p>
-<p dir="ltr" data-ad="1">Сложные формулы строятся из элементарных. Задавая язык конкретной математической теории, непосредственно определяют именно элементарные формулы и их смысл.</p>
-<p dir="ltr" data-ad="1">Чтобы задать элементарные формулы, необходимо определить предикаты, используемые в нашей теории, и её термы. А чтобы задать термы, нужно определить сорта объектов, константы и операции. В совокупности предикаты, сорта, константы, операции составляют <strong>сигнатуру</strong> (или <strong>словарь</strong>) теории.</p>
-<p dir="ltr" data-ad="1">Задав словарь теории, необходимо проинтерпретировать все понятия, перечисленные в нём. При этом константам сопоставляются конкретные объекты, задаются правила вычисления значений функций, сопоставленных операциям, и правила, по которым определяются логические значения предикатов. После интерпретации элементарные формулы, не содержащие переменных, оказываются либо истинны, либо ложны, а формулы, содержащие переменные, становятся истинными либо ложными после задания (фиксации) значений переменных.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Замечание 26.</strong> Как часто бывает, одно и то же слово даже в науке применяется в разных смыслах. Когда говорят «Возьмём произвольное фиксированное x», значение переменной не задаётся, а просто принимается, что оно неизменно. Когда же говорят «Фиксируем x», то задаётся совершенно определённое значение, и чаще всего оно либо указывается, либо “ясно из контекста”. Восстанавливать недосказанную информацию вам, информатики, придётся на каждом шагу. Чаще всего то, что «ясно», оказывается на самом деле неясно и требует дополнительных усилий. А если и вам, и сказавшему всё было ясно, но имели вы в виду разные x, то… мойте шею для выволочки и ругайте лишь сами себя: вы, как специалист-информатик, обязаны были выяснить, что же имелось в виду.</p>
-</blockquote>
-<p dir="ltr" data-ad="1"><strong>Пример 2.4.1.</strong> В элементарной теории действительных чисел имеется единственный сорт объектов, интерпретируемый как множество действительных чисел ℝ, двухместные отношения = и &gt;, константы 0 и 1, операции +, ×, /, −. Перечисленные символы образуют словарь этой теории. В строгой формальной записи другими функциями, отношениями, константами пользоваться нельзя. Но так работать невозможно.</p>
-<p dir="ltr" data-ad="1">В логике выработаны способы вводить определения новых объектов и отношений таким способом, чтобы в принципе все выкладки и рассуждения, их использующие, можно было чисто механически расшифровать через исходные понятия.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 16 (автор).</strong> Это первый случай в данной книге, когда Вы встречаетесь с реализацией правила: «Если теоретик говорит: “В принципе возможно”, практику нужно понимать: “Практически невозможно”».</p>
-</blockquote>
-<h2 id="25-некоторые-обозначения" dir="ltr" data-ad="1">2.5 Некоторые обозначения</h2>
-<p dir="ltr" data-ad="1">Для удобства дальнейшего изложения зафиксируем следующие обозначения.</p>
-<p dir="ltr" data-ad="1">Для часто встречающихся множеств:</p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>ℕ</strong> — множество натуральных чисел, включая 0.</li>
-<li dir="ltr" data-ad="1"><strong>ℕ₊</strong> — множество натуральных чисел, кроме 0.</li>
-<li dir="ltr" data-ad="1"><strong>ℤ</strong> — множество целых чисел.</li>
-<li dir="ltr" data-ad="1"><strong>ℚ</strong> — множество рациональных чисел.</li>
-<li dir="ltr" data-ad="1"><strong>ℝ</strong> — множество действительных чисел.</li>
-<li dir="ltr" data-ad="1"><strong>ℂ</strong> — множество комплексных чисел.</li>
-<li dir="ltr" data-ad="1"><strong>𝕍</strong> — множество точек трёхмерного пространства.</li>
-<li dir="ltr" data-ad="1"><strong>𝕃</strong> — множество прямых.</li>
-<li dir="ltr" data-ad="1"><strong>ℙ</strong> — множество плоскостей.</li>
-</ul>
-<p dir="ltr" data-ad="1">Употребляются также общепринятые символы отношений, такие как &lt;, ⩾, =, ⊥ (перпендикулярность) и т. д.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Знак ⊥ здесь означает перпендикулярность, а в § 2.2 — ложь. Совпадение обозначений есть в оригинале; различайте по контексту. Двойной шрифт множеств также разводит ℙ (плоскости) и P (предикат), ℂ (комплексные числа) и C (отношение соседства).</p>
-</blockquote>
-<p dir="ltr" data-ad="1">Кроме того, для геометрических объектов введём следующие символы отношений:</p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">x ∈ α — точка x лежит на прямой α;</li>
-<li dir="ltr" data-ad="1">α ∈ p — прямая α лежит на плоскости p;</li>
-<li dir="ltr" data-ad="1">α × β — прямые α и β пересекаются;</li>
-<li dir="ltr" data-ad="1">p × q — плоскости p и q пересекаются.</li>
-</ul>
-<p dir="ltr" data-ad="1">Операцию нахождения остатка от деления натуральных чисел x и y обозначим x mod y, а результат деления x на y нацело (с отбрасыванием остатка) — x ÷ y.</p>
-<p dir="ltr" data-ad="1">Если для рассматриваемого отношения нет общепринятого символа, допустимо временно вводить свой. К примеру, если для отношения “лежать между” введён символ H, то для точек, изображённых на рис. 2.1, H(Q, M, K) истинно, H(N, M, K) — ложно. Если C — символ для двухместного отношения “быть соседями”, то C(Пётр, Матвей) можно прочитать и самим.</p>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Пример верен и правке не подлежит: первым аргументом H стоит средняя точка (см. рис. 2.1), поэтому H(N, M, K) означает «N лежит между M и K», что ложно при порядке N, M, Q, K.</p>
-</blockquote>
-<p dir="ltr" data-ad="1"><strong>Суммируем:</strong></p>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">Высказывания принимают логические значения.</li>
-<li dir="ltr" data-ad="1">Единственными общепризнанными логическими значениями являются истина и ложь.</li>
-<li dir="ltr" data-ad="1">Каждая теория имеет свой унивёрс, то есть множество рассматриваемых предметов. Если унивёрсов несколько, они называются сортами либо типами.</li>
-<li dir="ltr" data-ad="1">Высказывания о предметах образуются при помощи отношений, или предикатов.</li>
-<li dir="ltr" data-ad="1">Выражения, обозначающие предметы, называются термами.</li>
-<li dir="ltr" data-ad="1">Термы строятся из переменных и констант при помощи операций, или функциональных символов, которые применяются к предметам и в результате дают предмет.</li>
-<li dir="ltr" data-ad="1">Отношения (предикаты) применяются к термам и в результате дают высказывание (элементарную формулу).</li>
-<li dir="ltr" data-ad="1">Предикаты могут быть не только математическими и даже могут обозначать квазивысказывания. С этим работают в формальных онтологиях и в математической философии.</li>
-</ul>
-<h3 id="упражнения-к--25" dir="ltr" data-ad="1">Упражнения к § 2.5</h3>
-<p dir="ltr" data-ad="1"><strong>2.5.1.</strong> Выделите предметы и отношения в нижеследующих высказываниях, попытайтесь записать их символически.</p>
-<ol dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">Кондрат поехал в Ленинград.</li>
-<li dir="ltr" data-ad="1">Маша любит кашу.</li>
-<li dir="ltr" data-ad="1">Маша любит Сашу.</li>
-<li dir="ltr" data-ad="1">Иванушка — дурачок.</li>
-<li dir="ltr" data-ad="1">Мне скучно.</li>
-<li dir="ltr" data-ad="1">Иванов, Петров, Васильев и Сидоров играют в домино.</li>
-<li dir="ltr" data-ad="1">Иванов, Петров, Васильев и Сидоров слушают лекцию.</li>
-<li dir="ltr" data-ad="1">Среднее арифметическое x и y больше их среднего геометрического.</li>
-<li dir="ltr" data-ad="1">5 не является решением уравнения x² − 3x + 2 = 0.</li>
-<li dir="ltr" data-ad="1">1 является решением уравнения x² − 3x + 2 = 0.</li>
-<li dir="ltr" data-ad="1">Иван — хороший человек.</li>
-<li dir="ltr" data-ad="1">Иван — хороший палач.</li>
-<li dir="ltr" data-ad="1">Бимбо — маленький слон.</li>
-<li dir="ltr" data-ad="1">Ланда — большая собака.</li>
-<li dir="ltr" data-ad="1">Слон Бимбо больше собаки Ланды.</li>
-</ol>
-<p dir="ltr" data-ad="1"><strong>2.5.2.</strong> Из приведённых ниже высказываний некоторые истинны, некоторые ложны, а некоторые являются чушью, то есть неправильно записаны. Укажите и те, и другие, и третьи.</p>
-<ol dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1">x² − 2x = 0</li>
-<li dir="ltr" data-ad="1">1 ∈ (x² − 2x + 1 = 0)</li>
-<li dir="ltr" data-ad="1">x² + 1 = 0</li>
-<li dir="ltr" data-ad="1">x = y = 0</li>
-<li dir="ltr" data-ad="1">x² + 1 &gt; 0</li>
-<li dir="ltr" data-ad="1">5² − 2 · 5 + 1 = 0</li>
-<li dir="ltr" data-ad="1">x + y = xy</li>
-<li dir="ltr" data-ad="1">x + 2 &gt; x &gt; x − 2</li>
-<li dir="ltr" data-ad="1">1² − 2 · 1 + 1 = 0</li>
-<li dir="ltr" data-ad="1">AB × AC</li>
-<li dir="ltr" data-ad="1">AB × AC × AD</li>
-</ol>
-<h3 id="указания" dir="ltr" data-ad="1">Указания</h3>
-<ul dir="ltr" data-ad="1">
-<li dir="ltr" data-ad="1"><strong>(2.5.1.1)</strong> У нас объектами являются живые существа. Может ли Ленинград быть объектом?</li>
-<li dir="ltr" data-ad="1"><strong>(2.5.1.7)</strong> В чём разница между этим утверждением и предыдущим?</li>
-<li dir="ltr" data-ad="1"><strong>(2.5.2.1)</strong> Известно ли нам значение x?</li>
-<li dir="ltr" data-ad="1"><strong>(2.5.2.4)</strong> Аргументами отношения могут быть лишь предметы, так что это — чушь, хотя и понятная. В самом деле, если считать, что первый знак = связывает x и y, то второй связывает предмет 0 и логическое значение; если же второй связывает два предмета, то некорректно использование первого. Люди часто и бессистемно используют подобные сокращения, и это зачастую оправдано (например, при конспектировании лекции), но уже в языках программирования такие вольности недопустимы.</li>
-</ul>
-<blockquote dir="ltr" data-ad="1">
-<p dir="ltr" data-ad="1"><strong>Сноска 17 (АПБ).</strong> x = y = z — сокращение не менее законное, чем запись x = y вместо (x = y). Более того, есть языки программирования (например, КОБОЛ, QME), где могут быть записи вида x &lt; y &amp; 0 с совершенно строгими правилами интерпретации (но не обязательно интуитивно естественными).</p>
-<p dir="ltr" data-ad="1"><strong>Примеч. ред.</strong> Сравнение «x = y вместо (x = y)» пусто: это одно и то же. Вероятно, в оригинале «вместо =(x, y)» — фрагмент искажён. Название QME как язык программирования не опознаётся и требует сверки с печатным оригиналом; КОБОЛ назван корректно — в нём допустимы сокращённые комбинированные условия.</p>
-</blockquote>
-<hr>
-<h2 id="что-изменено-относительно-предыдущей-версии" dir="ltr" data-ad="1">Что изменено относительно предыдущей версии</h2>
-<p dir="ltr" data-ad="1"><strong>Отменены мои ошибочные правки:</strong> восстановлено H(N, M, K) и единственное число «прогулял» (оба места снабжены пояснениями, чтобы их не «исправили» снова).</p>
-<p dir="ltr" data-ad="1"><strong>Восстановлено авторское оформление:</strong> три вида кавычек, двойной шрифт множеств, знак предпочтения ≻ в замечании 20, ссылка [168] на Plankalkül, порядок примеров (2.13), (2.9), (2.14), время «11.35», формулировки замечаний 20 и 21 по оригиналу.</p>
-<p dir="ltr" data-ad="1"><strong>Помечено как предположение редактора:</strong> замена (2.7) на (2.4) в списке безусловно истинных.</p>
-<p dir="ltr" data-ad="1"><strong>Сохранено с пометками «Примеч. ред.»:</strong> Волга и Кама, JSON и YAML, динамическая типизация, «второй исторически язык», область определения корня, «стандартная запись», столкновение знака ⊥, Пирс, парадокс Кондорсе и хронология, отсылка к «примеру с ковидом» (с кратким изложением замечания 14), искажённая сноска АПБ и QME, непоследовательность «операция — функция».</p>
+<h1 id="chapter-title"><span class="kicker">Глава 3.</span> Запись высказываний. Логические формулы</h1>
 
+<p>Теперь нужно строго определить выражения, с помощью которых записываются высказывания в нашем формальном языке. Эти выражения называются логическими формулами, или просто формулами. Обычные математические формулы являются простейшим случаем логических (элементарные формулы).</p>
+
+<p>С чисто формальной точки зрения предикаты (отношения) можно рассматривать как функции, сопоставляющие своим аргументам истинностные значения, т. е. функции, принимающие всего два значения: истина и ложь.</p>
+
+<p class="statement">Функция, сопоставленная предикату <code><span aria-hidden="true">&lt;</span><span class="visually-hidden">меньше</span></code>, перерабатывает пару чисел <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code>, <code><span aria-hidden="true">y</span><span class="visually-hidden">игрек</span></code> в <span class="sym" aria-hidden="true">⊤</span><span class="visually-hidden">истину</span>, если <code><span aria-hidden="true">x &lt; y</span><span class="visually-hidden">икс меньше игрека</span></code>, и в <span class="sym" aria-hidden="true">⊥</span><span class="visually-hidden">ложь</span>, если <code><span aria-hidden="true">x ⩾ y</span><span class="visually-hidden">икс больше или равен игреку</span></code>.<span class="eq-num">(3.1)</span></p>
+
+<p>Таким образом, приняв соглашения 1 и 2, мы должны, чтобы быть последовательными, принять и следующую гипотезу:</p>
+
+<p class="agreement"><strong>Соглашение 3.</strong> Как только задана интерпретация и фиксированы значения всех встречающихся в элементарной формуле переменных, становится известно и логическое значение элементарной формулы.</p>
+
+<p>По соглашению 2, тогда в принципе возможно определить истинностные значения и всех более сложных формул, так как значения их элементарных частей уже заданы. Но для этого нужно знать, какими способами более сложные формулы строятся из более простых.</p>
+
+<p>Для образования новых формул из имеющихся используются логические связки. Логические связки применяются к высказываниям и в результате дают высказывание. Рассмотрим общепринятые логические связки.</p>
+
+<p>Далее <em>A</em>, <em>B</em> — высказывания, записанные на человеческом языке, <code><span aria-hidden="true">A</span><span class="visually-hidden">а</span></code>, <code><span aria-hidden="true">B</span><span class="visually-hidden">бэ</span></code> — их переводы на формальный язык.</p>
+
+<h2 id="s31" style="--acc:#0E6B5C">3.1 Связка ‘и’</h2>
+
+<p>Союзу ‘и’ сопоставляется логическая связка <code><span aria-hidden="true">&amp;</span><span class="visually-hidden">амперсанд</span></code>. Операция <code><span aria-hidden="true">&amp;</span><span class="visually-hidden">амперсанд</span></code> называется конъюнкцией. Эта связка применяется при переводе на формальный язык утверждений вида «<em>A</em> и <em>B</em>», «<em>A</em>, но и <em>B</em> также», «<em>A</em> вместе с <em>B</em>», «<em>A</em>, несмотря на <em>B</em>», «не только <em>A</em>, но и <em>B</em>», «как <em>A</em>, так и <em>B</em>», «<em>A</em>, хотя и <em>B</em>» и т. п. Все они переводятся одинаково: <code><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></code>. Разные слова здесь выражают разное отношение к факту, но не меняют самого факта. Соответственно, переводя <code><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></code> на естественный язык, нужно выбирать подходящий, наиболее выразительный вариант.</p>
+
+<p>Если <code><span aria-hidden="true">Р(x)</span><span class="visually-hidden">эр от икс</span></code> означает ‘x — разбойник’, <code><span aria-hidden="true">Д(x)</span><span class="visually-hidden">дэ от икс</span></code> — ‘x — добрый’, <code><span aria-hidden="true">РГ</span><span class="visually-hidden">эр гэ</span></code> — константа для объекта ‘Робин Гуд’, то <code><span aria-hidden="true">Р(РГ) &amp; Д(РГ)</span><span class="visually-hidden">эр от эр гэ и дэ от эр гэ</span></code> естественно перевести, например, так: «Робин Гуд был добрым, хотя и разбойником», или «Робин Гуд был разбойником, несмотря на то, что был добрым».</p>
+
+<p>Утверждение <code><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></code> истинно в том и только том случае, когда истинны как <em>A</em>, так и <em>B</em>, и ложно во всех остальных случаях.</p>
+
+<p>Заметим, что уже для этой простейшей связки математический смысл не всегда совпадает с содержательным. В самом деле, математически <code><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></code> и <code><span aria-hidden="true">B &amp; A</span><span class="visually-hidden">бэ и а</span></code> означают одно и то же, а содержательно, скажем, высказывания</p>
+
+<p class="statement">Маша вышла замуж, и у неё родился ребёнок;<span class="eq-num">(3.2)</span></p>
+
+<p class="statement">У Маши родился ребёнок, и она вышла замуж<span class="eq-num">(3.3)</span></p>
+
+<p>понимаются несколько по-разному (пример Клини) <span class="note" role="note">(прим.: В примере Клини чётко выявляется разница между описаниями состояний и действий. Более того, можно считать, что содержательно здесь представлено явление омонимии, когда одним и тем же словом называются разные понятия. Логики и философы (и не только они) любят на этом спекулировать. Даже Клини не смог устоять перед соблазном. — Дополнение II, замечание 27.)</span>.</p>
+
+<h2 id="s32" style="--acc:#2456C4">3.2 Связка ‘или’</h2>
+
+<p>«<em>A</em> или <em>B</em>» символически записывается <code><span aria-hidden="true">A ∨ B</span><span class="visually-hidden">а или бэ</span></code>. Знак <code><span aria-hidden="true">∨</span><span class="visually-hidden">«или»</span></code> называется дизъюнкцией. Эта же связка применяется при переводе утверждений «<em>A</em> или <em>B</em> или оба вместе», «<em>A</em> и/или <em>B</em>» и т. п. <code><span aria-hidden="true">A ∨ B</span><span class="visually-hidden">а или бэ</span></code> считается истинным, если хотя бы одно из двух составляющих утверждений истинно, и ложным лишь тогда, когда они оба ложны.</p>
+
+<p class="ed"><em class="note">Прим. ред. Из этого списка убрано «либо A, либо B»: в русском это обычно разделительное «или», и два абзаца ниже автор сам это показывает. Остальные обороты списка передают неразделительную дизъюнкцию верно.</em></p>
+
+<p>В естественном языке ‘или’ порою используется как разделительная связка: ‘то или другое, но не оба вместе’. Поэтому неожиданным для хозяев был ответ Ходжи Насреддина на вопрос: «Что желаете поесть: плова или бешбармака?» — «А разве у вас всего один котёл?» Но чаще две возможности <em>A</em> и <em>B</em> просто несовместимы, и оба смысла совпадают.</p>
+
+<p>Если в <code><span aria-hidden="true">A ∨ B</span><span class="visually-hidden">а или бэ</span></code> утверждения <em>A</em> и <em>B</em> несовместимы, то их называют альтернативами.</p>
+
+<p><strong>Пример 3.2.1.</strong> Для двух неравных чисел <code><span aria-hidden="true">a</span><span class="visually-hidden">а</span></code> и <code><span aria-hidden="true">b</span><span class="visually-hidden">бэ</span></code> есть две альтернативы: или <code><span aria-hidden="true">a &lt; b</span><span class="visually-hidden">а меньше бэ</span></code>, или <code><span aria-hidden="true">a &gt; b</span><span class="visually-hidden">а больше бэ</span></code>.</p>
+
+<p>Понятие альтернативы обобщается на несколько несовместимых утверждений, дизъюнкция которых истинна. Например, для произвольных действительных чисел есть три альтернативы: <code><span aria-hidden="true">a = b</span><span class="visually-hidden">а равно бэ</span></code>, <code><span aria-hidden="true">a &lt; b</span><span class="visually-hidden">а меньше бэ</span></code>, <code><span aria-hidden="true">a &gt; b</span><span class="visually-hidden">а больше бэ</span></code>.</p>
+
+<p>Если же в математике приходится пользоваться “разделительным или”, оно обозначается <code><span aria-hidden="true">⊕</span><span class="visually-hidden">плюс в кружке</span></code> <span class="note" role="note">(прим.: Этой операции обычно избегают из-за неудобства некоторых преобразований с <span class="sym" aria-hidden="true">⊕</span><span class="visually-hidden">разделительным или</span>; в частности, истинность <code><span aria-hidden="true">A_1 ⊕ … ⊕ A_n</span><span class="visually-hidden">а с индексом один, разделительное или, и так далее, разделительное или а с индексом эн</span></code> означает вовсе не истинность одного и только одного из высказываний <code><span aria-hidden="true">A_i</span><span class="visually-hidden">а с индексом и</span></code>. Выражение истинно, когда количество истинных членов <span class="sym" aria-hidden="true">⊕</span><span class="visually-hidden">разделительного или</span> нечётно. — Дополнение II, замечание 29.)</span>.</p>
+
+<h2 id="s33" style="--acc:#BC3F1D">3.3 Связка ‘следует’</h2>
+
+<p>«Из <em>A</em> следует <em>B</em>» символически записывается: <code><span aria-hidden="true">A ⇒ B</span><span class="visually-hidden">из а следует бэ</span></code>. Знак <code><span aria-hidden="true">⇒</span><span class="visually-hidden">«двойная стрелка вправо»</span></code> называется импликацией. Другими вариантами содержательных утверждений, точно так же переводящихся, служат: «<em>A</em> достаточное условие для <em>B</em>», «<em>B</em> необходимое условие для <em>A</em>», «<em>A</em>, только если <em>B</em>», «<em>B</em>, если <em>A</em>», «в случае <em>A</em> выполнено и <em>B</em>», «<em>A</em> есть <em>B</em>».</p>
+
+<p>Правила вычисления истинностного значения <code><span aria-hidden="true">A ⇒ B</span><span class="visually-hidden">из а следует бэ</span></code> нуждаются в комментариях. Они опираются на содержательный смысл связки <code><span aria-hidden="true">⇒</span><span class="visually-hidden">«следует»</span></code>: из <em>A</em> можно сделать вывод (вывести следствие) <em>B</em>, и на наши гипотезы.</p>
+
+<p>Рассмотрим верное утверждение: «Если n делится на 6, то n делится и на 3». Будем теперь подставлять вместо <code><span aria-hidden="true">n</span><span class="visually-hidden">эн</span></code> конкретные значения. Получим, в частности, следующие три утверждения:</p>
+
+<p class="statement">Если 6 делится на 6, то 6 делится на 3<span class="eq-num">(3.4)</span></p>
+
+<p class="statement">Если 5 делится на 6, то 5 делится на 3<span class="eq-num">(3.5)</span></p>
+
+<p class="statement">Если 3 делится на 6, то 3 делится на 3<span class="eq-num">(3.6)</span></p>
+
+<p>Все эти утверждения также обязаны быть истинны. Но, пользуясь соглашением 2 и заменяя утверждения о делимости на их конкретные логические значения, получаем, что тогда должно быть</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.7: из истины следует истина; значение — истина.</span><span class="fx" aria-hidden="true">(⊤ ⇒ ⊤) = ⊤</span><span class="eq-num" aria-hidden="true">(3.7)</span></p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.8: из лжи следует ложь; значение — истина.</span><span class="fx" aria-hidden="true">(⊥ ⇒ ⊥) = ⊤</span><span class="eq-num" aria-hidden="true">(3.8)</span></p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.9: из лжи следует истина; значение — истина.</span><span class="fx" aria-hidden="true">(⊥ ⇒ ⊤) = ⊤</span><span class="eq-num" aria-hidden="true">(3.9)</span></p>
+
+<p>Другими словами, должны быть истинны утверждения</p>
+
+<p class="statement">Из истины следует истина<span class="eq-num">(3.10)</span></p>
+
+<p class="statement">Из лжи следует ложь<span class="eq-num">(3.11)</span></p>
+
+<p class="statement">Из лжи следует истина<span class="eq-num">(3.12)</span></p>
+
+<p class="ed"><em class="note">Прим. ред. Четвёртый случай этими примерами не порождается: <code><span aria-hidden="true">(⊤ ⇒ ⊥) = ⊥</span><span class="visually-hidden">из истины следует ложь; значение — ложь</span></code>. Он фиксируется требованием, чтобы из истины ложь не следовала, и приведён в таблице 3.6.</em></p>
+
+<p>Подытожим. Истинность (3.4), (3.5), (3.6) необходимо принять, если желаем обеспечить возможность подстановки в доказанные теоремы конкретных значений переменных. А по соглашению 2 нам приходится принять и (3.10), (3.11), (3.12).</p>
+
+<p>Утверждение (3.6) и соответствующее ему (3.12) кажутся несколько парадоксальными. Но мы знаем, что из ложных предположений можно иногда содержательным рассуждением получить истинные следствия. Например, из ложного предположения “существуют русалки” следует истинное “купаться ночью в одиночку в незнакомом месте опасно”. Принципиально неправильная система мира Птолемея, в которой центром Вселенной служит Земля, очень точно описывает видимые движения планет. Соглашение 2 опять-таки заставляет нас распространить эту истинность на все мыслимые в математике случаи.</p>
+
+<p>Правда, при этом приходится признать формально истинными и предложения типа</p>
+
+<p class="statement">Если Волга впадает в Балтийское море, то Ижевск находится в тропиках.<span class="eq-num">(3.13)</span></p>
+
+<p>Но при любой математической формализации происходит абстрагирование, и некоторые содержательно бессмысленные предложения переходят в разряд формально истинных либо формально ложных <span class="note" role="note">(прим.: Не бойтесь, гораздо больше содержательно осмысленных предложений переходит при этом в разряд формально бессмысленных.)</span>.</p>
+
+<h2 id="s34" style="--acc:#7A3E9D">3.4 Связка ‘тогда и только тогда’</h2>
+
+<p>«<em>A</em> тогда и только тогда, когда <em>B</em>» символически записывается <code><span aria-hidden="true">A ⇔ B</span><span class="visually-hidden">а эквивалентно бэ</span></code>. Знак <code><span aria-hidden="true">⇔</span><span class="visually-hidden">«двойная стрелка в обе стороны»</span></code> называется эквивалентностью. Той же связкой переводятся предложения «<em>A</em> эквивалентно <em>B</em>», «<em>A</em> необходимое и достаточное условие для <em>B</em>», «если <em>A</em>, то и <em>B</em>, и наоборот» и т. п. Ритуальное выражение «тогда и только тогда, когда» в дальнейшем сокращается ттт.</p>
+
+<p><code><span aria-hidden="true">A ⇔ B</span><span class="visually-hidden">а эквивалентно бэ</span></code> истинно ттт истинностные значения <code><span aria-hidden="true">A</span><span class="visually-hidden">а</span></code> и <code><span aria-hidden="true">B</span><span class="visually-hidden">бэ</span></code> совпадают и ложно ттт их истинностные значения различны.</p>
+
+<p><code><span aria-hidden="true">A ⇔ B</span><span class="visually-hidden">а эквивалентно бэ</span></code> выражается через <code><span aria-hidden="true">⇒</span><span class="visually-hidden">«следует»</span></code> и <code><span aria-hidden="true">&amp;</span><span class="visually-hidden">«и»</span></code>:</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.14: «из а следует бэ» и «из бэ следует а».</span><span class="fx" aria-hidden="true">(A ⇒ B) &amp; (B ⇒ A)</span><span class="eq-num" aria-hidden="true">(3.14)</span></p>
+
+<p>Если знаком <code><span aria-hidden="true">≜</span><span class="visually-hidden">«равно с треугольником сверху»</span></code> обозначено ‘есть по определению’, то можно записать</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.15: «а эквивалентно бэ» есть по определению «из а следует бэ» и «из бэ следует а».</span><span class="fx" aria-hidden="true">(A ⇔ B) ≜ (A ⇒ B) &amp; (B ⇒ A)</span><span class="eq-num" aria-hidden="true">(3.15)</span></p>
+
+<h2 id="s35" style="--acc:#B3261E">3.5 Связка ‘не’</h2>
+
+<p>Утверждение «не <em>A</em>» символически записывается <code><span aria-hidden="true">¬A</span><span class="visually-hidden">не а</span></code>. Знак <code><span aria-hidden="true">¬</span><span class="visually-hidden">«не»</span></code> называется отрицанием. Эта же связка используется при переводе выражений «<em>A</em> неверно», «<em>A</em> ложно», «<em>A</em> не может быть» и т. п. <code><span aria-hidden="true">¬A</span><span class="visually-hidden">не а</span></code> истинно, когда ложно <em>A</em>, и ложно, когда истинно <em>A</em>.</p>
+
+<p>Связки <code><span aria-hidden="true">&amp;</span><span class="visually-hidden">«и»</span></code>, <code><span aria-hidden="true">∨</span><span class="visually-hidden">«или»</span></code>, <code><span aria-hidden="true">⇒</span><span class="visually-hidden">«следует»</span></code>, <code><span aria-hidden="true">⇔</span><span class="visually-hidden">«эквивалентно»</span></code>, <code><span aria-hidden="true">¬</span><span class="visually-hidden">«не»</span></code> называются связками исчисления высказываний или пропозициональными связками.</p>
+
+<h2 id="s36" style="--acc:#8F6400">3.6 Таблицы истинности</h2>
+
+<p>Способы вычисления истинностных значений высказываний <code><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></code>, <code><span aria-hidden="true">A ∨ B</span><span class="visually-hidden">а или бэ</span></code>, <code><span aria-hidden="true">A ⇒ B</span><span class="visually-hidden">из а следует бэ</span></code>, <code><span aria-hidden="true">A ⇔ B</span><span class="visually-hidden">а эквивалентно бэ</span></code>, <code><span aria-hidden="true">¬A</span><span class="visually-hidden">не а</span></code> можно собрать в следующие таблицы:</p>
+
+<div class="table-scroll" role="region" aria-labelledby="tbl-3-6a-caption" tabindex="0">
+<table>
+<caption id="tbl-3-6a-caption">Таблица 3.6а — Истинность связок «и», «или», «следует», «эквивалентно»</caption>
+<thead>
+<tr>
+<th scope="col"><span aria-hidden="true">A</span><span class="visually-hidden">а</span></th>
+<th scope="col"><span aria-hidden="true">B</span><span class="visually-hidden">бэ</span></th>
+<th scope="col"><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></th>
+<th scope="col"><span aria-hidden="true">A ∨ B</span><span class="visually-hidden">а или бэ</span></th>
+<th scope="col"><span aria-hidden="true">A ⇒ B</span><span class="visually-hidden">из а следует бэ</span></th>
+<th scope="col"><span aria-hidden="true">A ⇔ B</span><span class="visually-hidden">а эквивалентно бэ</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а: истина</span></th>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">бэ: истина</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а и бэ: истина</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а или бэ: истина</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">из а следует бэ: истина</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а эквивалентно бэ: истина</span></td>
+</tr>
+<tr>
+<th scope="row"><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а: истина</span></th>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">бэ: ложь</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а и бэ: ложь</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а или бэ: истина</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">из а следует бэ: ложь</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а эквивалентно бэ: ложь</span></td>
+</tr>
+<tr>
+<th scope="row"><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а: ложь</span></th>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">бэ: истина</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а и бэ: ложь</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а или бэ: истина</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">из а следует бэ: истина</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а эквивалентно бэ: ложь</span></td>
+</tr>
+<tr>
+<th scope="row"><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а: ложь</span></th>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">бэ: ложь</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а и бэ: ложь</span></td>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а или бэ: ложь</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">из а следует бэ: истина</span></td>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а эквивалентно бэ: истина</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="table-scroll" role="region" aria-labelledby="tbl-3-6b-caption" tabindex="0">
+<table>
+<caption id="tbl-3-6b-caption">Таблица 3.6б — Отрицание</caption>
+<thead>
+<tr>
+<th scope="col"><span aria-hidden="true">A</span><span class="visually-hidden">а</span></th>
+<th scope="col"><span aria-hidden="true">¬A</span><span class="visually-hidden">не а</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">а: истина</span></th>
+<td><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">не а: ложь</span></td>
+</tr>
+<tr>
+<th scope="row"><span class="tv tv-f" aria-hidden="true">⊥</span><span class="visually-hidden">а: ложь</span></th>
+<td><span class="tv tv-t" aria-hidden="true">⊤</span><span class="visually-hidden">не а: истина</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s37" style="--acc:#3F3D9E">3.7 Квантор ‘Для всех’</h2>
+
+<p>Утверждение «для всех <em>x</em> верно <em>A(x)</em>» символически записывается <code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code>. Символ <code><span aria-hidden="true">∀</span><span class="visually-hidden">«перевёрнутая буква а»</span></code> называется квантором всеобщности. Эта же связка используется при переводе утверждений «<em>A</em> верно при любом значении <em>x</em>», «для произвольного <em>x</em> имеет место <em>A(x)</em>», «каково бы ни было <em>x</em>, <em>A(x)</em>» и т. п.</p>
+
+<p>Утверждение <code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code> истинно ттт <code><span aria-hidden="true">A(c)</span><span class="visually-hidden">а от цэ</span></code> истинно, какой бы конкретный предмет <code><span aria-hidden="true">c</span><span class="visually-hidden">цэ</span></code> из унивёрса нашей теории мы ни подставляли вместо <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code>. Другими словами, <code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code> истинно ттт <code><span aria-hidden="true">A(x)</span><span class="visually-hidden">а от икс</span></code> истинно при любом фиксированном значении <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code>. Утверждение <code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code> ложно ттт имеется хоть один предмет <code><span aria-hidden="true">c</span><span class="visually-hidden">цэ</span></code> из нашего унивёрса (другими словами, хотя бы одно конкретное значение <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code>), такой, что <code><span aria-hidden="true">A(c)</span><span class="visually-hidden">а от цэ</span></code> ложно.</p>
+
+<p>Заметим, что таблицы истинности для связок исчисления высказываний можно применять чисто механически и, в частности, вычислять логические значения формул на машине, а определение истинностного значения формулы <code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code> не всегда сводится к простому вычислению.</p>
+
+<p>Например, при данных конкретных натуральных <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code>, <code><span aria-hidden="true">y</span><span class="visually-hidden">игрек</span></code>, <code><span aria-hidden="true">z</span><span class="visually-hidden">зет</span></code>, <code><span aria-hidden="true">n</span><span class="visually-hidden">эн</span></code> утверждение</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.16: сумма «икс плюс один», возведённая в степень «эн плюс три», плюс сумма «игрек плюс один», возведённая в степень «эн плюс три», не равна сумме «зет плюс один», возведённой в степень «эн плюс три».</span><span class="fx" aria-hidden="true">(x + 1)^(n+3) + (y + 1)^(n+3) ≠ (z + 1)^(n+3)</span><span class="eq-num" aria-hidden="true">(3.16)</span></p>
+
+<p>можно проверить простым вычислением, а проблема, верно или неверно на множестве <span class="sym" aria-hidden="true">ℕ</span><span class="visually-hidden">натуральных чисел</span> утверждение</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.17: для всех икс, для всех игрек, для всех зет, для всех эн: сумма «икс плюс один», возведённая в степень «эн плюс три», плюс сумма «игрек плюс один», возведённая в степень «эн плюс три», не равна сумме «зет плюс один», возведённой в степень «эн плюс три».</span><span class="fx" aria-hidden="true">∀x ∀y ∀z ∀n ((x + 1)^(n+3) + (y + 1)^(n+3) ≠ (z + 1)^(n+3))</span><span class="eq-num" aria-hidden="true">(3.17)</span></p>
+
+<p>стояла более 300 лет, а найденное доказательство настолько сложно, что полная уверенность в нём сложилась лишь после многолетней проверки специалистами. А найти ошибку в сложном и длинном рассуждении во много раз труднее, чем его создать.</p>
+
+<p class="ed"><em class="note">Прим. ред. Фраза «появившееся в последнее время доказательство, что полной уверенности в нём нет» — след раннего издания. Уайлс объявил доказательство в 1993 году, найденный рецензентом пробел закрыт в 1994 году совместно с Р. Тейлором, обе статьи опубликованы в мае 1995 года. В сентябре 2026 года доказательство полностью формализовано в системе <span lang="en">Lean</span> и машинно проверено; формализацию проверил К. Баззард. Авторский вывод о трудности проверки длинных рассуждений от этого не страдает, а получает подтверждение. Здесь же исправлено «уравнение (3.17)»: (3.17) — замкнутая формула, уравнение — (3.18).</em></p>
+
+<p>Проблема, записанная формулой (3.17), известна под названием великой теоремы Ферма. На обычном математическом языке она формулируется следующим образом.</p>
+
+<p>Доказать, что уравнение</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.18: икс в степени эн плюс игрек в степени эн равно зет в степени эн.</span><span class="fx" aria-hidden="true">x^n + y^n = z^n</span><span class="eq-num" aria-hidden="true">(3.18)</span></p>
+
+<p>при натуральном <code><span aria-hidden="true">n &gt; 2</span><span class="visually-hidden">эн больше двух</span></code> не имеет решений в положительных целых числах.</p>
+
+<p>Принципиальная трудность и в великой теореме Ферма, и в других математических проблемах: рассматриваемое множество объектов (здесь натуральные числа) бесконечно, и проверить его всё нет даже принципиальной возможности. А математическое доказательство позволяет нам единым образом обозреть всё это бесконечное множество и получить точный ответ.</p>
+
+<h2 id="s38" style="--acc:#1E6E33">3.8 Квантор ‘Существует’</h2>
+
+<p>Утверждение «существует такое <em>x</em>, что <em>A(x)</em>» записывается на языке математики как <code><span aria-hidden="true">∃x A(x)</span><span class="visually-hidden">существует икс: а от икс</span></code>. Знак <code><span aria-hidden="true">∃</span><span class="visually-hidden">«перевёрнутая буква е»</span></code> называется квантором существования. Эта же связка применяется при переводе утверждений «<em>A(x)</em> верно при некоторых <em>x</em>», «<em>A(x)</em> иногда верно», «есть такое <em>x</em>, при котором <em>A(x)</em>», «можно найти такое <em>x</em>, при котором <em>A(x)</em>» и т. п.</p>
+
+<p>Высказывание <code><span aria-hidden="true">∃x A(x)</span><span class="visually-hidden">существует икс: а от икс</span></code> истинно, если в нашем унивёрсе найдётся хотя бы одно значение <code><span aria-hidden="true">c</span><span class="visually-hidden">цэ</span></code>, при котором <code><span aria-hidden="true">A(c)</span><span class="visually-hidden">а от цэ</span></code> истинно. <code><span aria-hidden="true">∃x A(x)</span><span class="visually-hidden">существует икс: а от икс</span></code> ложно, если при любом значении <code><span aria-hidden="true">c</span><span class="visually-hidden">цэ</span></code> ложно <code><span aria-hidden="true">A(c)</span><span class="visually-hidden">а от цэ</span></code>.</p>
+
+<p>Нахождение истинностного значения <code><span aria-hidden="true">∃x A(x)</span><span class="visually-hidden">существует икс: а от икс</span></code> также может составлять проблему. Например, натуральное число <code><span aria-hidden="true">n</span><span class="visually-hidden">эн</span></code> называется совершенным, если сумма его делителей (исключая само <code><span aria-hidden="true">n</span><span class="visually-hidden">эн</span></code>) равна <code><span aria-hidden="true">n</span><span class="visually-hidden">эн</span></code>. 6 — совершенное число, т. к. <code><span aria-hidden="true">6 = 1 + 2 + 3</span><span class="visually-hidden">шесть равно один плюс два плюс три</span></code>, 28 — также совершенное число, т. к. <code><span aria-hidden="true">28 = 1 + 2 + 4 + 7 + 14</span><span class="visually-hidden">двадцать восемь равно один плюс два плюс четыре плюс семь плюс четырнадцать</span></code>. Ясно, что при данном <code><span aria-hidden="true">n</span><span class="visually-hidden">эн</span></code> проверка условия ‘n — совершенное число’ — чисто механический процесс, её можно поручить машине <span class="note" role="note">(прим.: Но для применения таких рассуждений на практике очень важен размер данных и имеющиеся у нас ресурсы. Какое-либо число всего-навсего из 1000 знаков может сожрать убийственное количество машинного времени при попытках разложить его на множители. Поэтому то, что можно сделать в принципе, не всегда можно сделать реально.)</span>. Но проблема «существует ли нечётное совершенное число?» стоит уже более 2000 лет, и не видно способа её решить.</p>
+
+<p>Заметим, что утверждение <code><span aria-hidden="true">∃x A(x)</span><span class="visually-hidden">существует икс: а от икс</span></code> не отрицает того, что <code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code>. В жизни же порою словом “некоторые” подчёркивают смысл “не все”.</p>
+
+<p><strong>Пример 3.8.1.</strong> (Пример Клини) Политик, произнося «Некоторые политики — мошенники», имеет в виду «Неверно, будто все политики — мошенники, но некоторые — мошенники», и делает упор на первой части этого высказывания.</p>
+
+<p>На примере <code><span aria-hidden="true">∀</span><span class="visually-hidden">«для всех»</span></code> и <code><span aria-hidden="true">∃</span><span class="visually-hidden">«существует»</span></code> видим, что кванторные конструкции в формальном языке всегда употребляются вместе с переменной. Логические кванторы <code><span aria-hidden="true">∀</span><span class="visually-hidden">«для всех»</span></code> и <code><span aria-hidden="true">∃</span><span class="visually-hidden">«существует»</span></code> заставляют её пробегать весь унивёрс.</p>
+
+<h2 id="s39" style="--acc:#0E6B5C">3.9 Ограниченные кванторы</h2>
+
+<p>В математике и в жизни сплошь и рядом мы заинтересованы в том, чтобы заставить переменную пробегать не весь унивёрс, а лишь некоторую его часть. Мы говорим: «Все чётные числа — составные», «Некоторые молодые люди — студенты» и т. п. Наш символизм не мог бы быть хоть сколько-нибудь практичен, если бы он не включал удобных способов записи таких суждений.</p>
+
+<p class="ed"><em class="note">Прим. ред. Первое суждение приведено как образец формы, а не как истина: двойка чётна и проста. Верная формулировка — «Все чётные числа, большие двух, составные». Дальнейшая выкладка от истинности примера не зависит.</em></p>
+
+<p>Первый приходящий в голову способ — писать выражения, подобные <code><span aria-hidden="true">∀r С(r)</span><span class="visually-hidden">для всех эр: эс от эр</span></code>, где <code><span aria-hidden="true">r</span><span class="visually-hidden">эр</span></code> обозначает переменную для чётных чисел, или же <code><span aria-hidden="true">∀r ∈ Ч С(r)</span><span class="visually-hidden">для всех эр из че: эс от эр</span></code>. Введение т. н. “подчинённых” переменных (пробегающих части унивёрса) или “ограниченных” кванторов (вида <code><span aria-hidden="true">∀x ∈ X</span><span class="visually-hidden">для всех икс, принадлежащих множеству Икс</span></code>) возможно, но при прямом их использовании пришлось бы рассматривать массу тонкостей <span class="note" role="note">(прим.: Поэтому новые понятия, которые кажутся полезными, необходимо прежде всего попытаться сконструировать из старых. При формализации всегда нужно следовать принципу “бритвы Оккама”: «Не умножайте сущностей без необходимости». Такое “конструктивное” определение новых понятий имеет ещё одно преимущество: в “граничных” случаях, противоречащих интуиции и здравому смыслу, формальный смысл будет точно определён, и нам не придётся задумываться, как же его доопределить, чтобы не впасть в ненужные трудности либо даже в прямые противоречия. — Дополнение II, замечание 30.)</span>.</p>
+
+<p>Рассмотрим внимательнее утверждение «Все коровы любят сено». Если унивёрс нашей теории — множество всех живых существ, то напрашиваются два варианта перевода этого утверждения:</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.19: для всех икс: «ка от икс» и «эль эс от икс».</span><span class="fx" aria-hidden="true">∀x (К(x) &amp; ЛС(x))</span><span class="eq-num" aria-hidden="true">(3.19)</span></p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.20: для всех икс: если «ка от икс», то «эль эс от икс».</span><span class="fx" aria-hidden="true">∀x (К(x) ⇒ ЛС(x))</span><span class="eq-num" aria-hidden="true">(3.20)</span></p>
+
+<p>Здесь <code><span aria-hidden="true">К</span><span class="visually-hidden">ка</span></code> означает “корова”, а <code><span aria-hidden="true">ЛС</span><span class="visually-hidden">эль эс</span></code> — “любит сено”.</p>
+
+<p>Из варианта (3.19) следует, что всякое живое существо, в том числе и автор, и даже уважаемый читатель, является коровой и любит сено, что, мягко говоря, несколько преувеличено. Вариант же (3.20) кажется более многообещающим: коль скоро нам дана корова, она любит сено.</p>
+
+<p>Проверим (3.20) тщательнее. Случай, соответствующий “здравому смыслу”, — подстановка вместо <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code> коровы Машки — ничего не даёт. Если <code><span aria-hidden="true">М</span><span class="visually-hidden">эм</span></code> — эта корова, то <code><span aria-hidden="true">К(М)</span><span class="visually-hidden">ка от эм</span></code> истинно, <code><span aria-hidden="true">ЛС(М)</span><span class="visually-hidden">эль эс от эм</span></code> тоже истинно, и <code><span aria-hidden="true">К(М) ⇒ ЛС(М)</span><span class="visually-hidden">из «ка от эм» следует «эль эс от эм»</span></code>, <code><span aria-hidden="true">К(М) &amp; ЛС(М)</span><span class="visually-hidden">«ка от эм» и «эль эс от эм»</span></code> истинны. Итак, “разумный” случай не даёт нам возможности отличить правильный вариант от неправильного.</p>
+
+<p>Рассмотрим теперь случаи безумные. Пусть <code><span aria-hidden="true">Ч</span><span class="visually-hidden">че</span></code> — уважаемый читатель. Он (она), безусловно, коровой не является и сена не любит. Значит, <code><span aria-hidden="true">К(Ч)</span><span class="visually-hidden">ка от че</span></code> и <code><span aria-hidden="true">ЛС(Ч)</span><span class="visually-hidden">эль эс от че</span></code> ложны, и значение <code><span aria-hidden="true">К(Ч) ⇒ ЛС(Ч)</span><span class="visually-hidden">из «ка от че» следует «эль эс от че»</span></code> есть <code><span aria-hidden="true">⊥ ⇒ ⊥</span><span class="visually-hidden">из лжи следует ложь</span></code>, т. е. истина. Теперь вместо коровы возьмём коня. Он сено любит, но коровой не является, и, подставляя соответствующие логические значения, получаем <code><span aria-hidden="true">⊥ ⇒ ⊤</span><span class="visually-hidden">из лжи следует истина</span></code>, т. е. опять-таки истину. Похоже на то, что если все коровы любят сено, то (3.20) истинно.</p>
+
+<p>В самом деле, единственный способ опровергнуть (3.20) — задать такое <code><span aria-hidden="true">c</span><span class="visually-hidden">цэ</span></code>, при котором <code><span aria-hidden="true">К(c) ⇒ ЛС(c)</span><span class="visually-hidden">из «ка от цэ» следует «эль эс от цэ»</span></code> было бы ложно, т. е. <code><span aria-hidden="true">К(c)</span><span class="visually-hidden">ка от цэ</span></code> было бы истинно, а <code><span aria-hidden="true">ЛС(c)</span><span class="visually-hidden">эль эс от цэ</span></code> — ложно. Другими словами, чтобы опровергнуть (3.20), необходимо указать корову, которая сено не любит.</p>
+
+<p>Аналогично, для утверждения «некоторые молодые люди — студенты» есть две бросающиеся в глаза возможности перевода (<code><span aria-hidden="true">М</span><span class="visually-hidden">эм</span></code> означает “молодой человек”, <code><span aria-hidden="true">С</span><span class="visually-hidden">эс</span></code> — “студент”):</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.21: существует икс: «эм от икс» и «эс от икс».</span><span class="fx" aria-hidden="true">∃x (М(x) &amp; С(x))</span><span class="eq-num" aria-hidden="true">(3.21)</span></p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.22: существует икс: если «эм от икс», то «эс от икс».</span><span class="fx" aria-hidden="true">∃x (М(x) ⇒ С(x))</span><span class="eq-num" aria-hidden="true">(3.22)</span></p>
+
+<p class="ed"><em class="note">Прим. ред. Обозначения здесь локальные и перегружены: <code><span aria-hidden="true">Ч</span><span class="visually-hidden">че</span></code> — и множество чётных чисел выше, и константа «читатель»; <code><span aria-hidden="true">М</span><span class="visually-hidden">эм</span></code> — и предикат «молодой человек», и корова Машка. Различаются они по употреблению: <code><span aria-hidden="true">r ∈ Ч</span><span class="visually-hidden">эр принадлежит че</span></code> против <code><span aria-hidden="true">К(Ч)</span><span class="visually-hidden">ка от че</span></code>, <code><span aria-hidden="true">М(x)</span><span class="visually-hidden">эм от икс</span></code> против <code><span aria-hidden="true">К(М)</span><span class="visually-hidden">ка от эм</span></code>. В исходнике предикат «составное» набран латинской C, а «студент» — кириллической С; здесь всюду кириллица, как и в остальных мнемонических именах книги.</em></p>
+
+<p>Рассуждениями, подобными проведённым для <code><span aria-hidden="true">∀</span><span class="visually-hidden">«для всех»</span></code>, можно установить, что (3.22) неправильно. На самом деле мы сейчас проиллюстрировали важный случай общего правила.</p>
+
+<p class="rule">Чтобы найти ошибку в формальной конструкции, рассматривайте прежде всего крайние, почти безумные, случаи <span class="note" role="note">(прим.: Маловероятно, что автор конструкции настолько глуп либо безграмотен, что допустит ошибку в очевидном случае (хотя и такое бывает, даже у очень умных и квалифицированных людей). Даже если это случится, ошибка скорее всего распространится вплоть до границы области применимости конструкции. Данное правило является, в частности, одним из правил тестирования программ, поскольку программа — также формальная конструкция. — Дополнение II, замечание 28.)</span>.</p>
+
+<p>Итак, «Все <code><span aria-hidden="true">A</span><span class="visually-hidden">а</span></code> есть <code><span aria-hidden="true">B</span><span class="visually-hidden">бэ</span></code>» переводится</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.23: для всех икс: если «а от икс», то «бэ от икс».</span><span class="fx" aria-hidden="true">∀x (A(x) ⇒ B(x))</span><span class="eq-num" aria-hidden="true">(3.23)</span></p>
+
+<p>«Некоторые <code><span aria-hidden="true">A</span><span class="visually-hidden">а</span></code> есть <code><span aria-hidden="true">B</span><span class="visually-hidden">бэ</span></code>» переводится</p>
+
+<p class="formula"><span class="visually-hidden">Формула 3.24: существует икс: «а от икс» и «бэ от икс».</span><span class="fx" aria-hidden="true">∃x (A(x) &amp; B(x))</span><span class="eq-num" aria-hidden="true">(3.24)</span></p>
+
+<p>Но, как почти всегда, простое и верное решение не универсально. В главе, посвящённой формализации незнания, приведены примеры, и в некоторых случаях подчинённые кванторы (в частности, по беззаконным последовательностям) не могут быть заменены на аристотелевы расшифровки.</p>
+
+<p class="ed"><em class="note">Прим. ред. В исходнике номер этой главы утрачен — стоит «глава ??». Ссылка передана описательно; восстановить номер по имеющемуся тексту нельзя.</em></p>
+
+<p>Четыре устойчивых сочетания были выделены как основные Аристотелем и называются аристотелевы формулы:</p>
+
+<div class="table-scroll" role="region" aria-labelledby="tbl-3-2-caption" tabindex="0">
+<table>
+<caption id="tbl-3-2-caption">Таблица 3.2 — Четыре аристотелевы формулы</caption>
+<thead>
+<tr>
+<th scope="col">Формула</th>
+<th scope="col">Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code><span aria-hidden="true">∀x (A(x) ⇒ B(x))</span><span class="visually-hidden">для всех икс: если а от икс, то бэ от икс</span></code></th>
+<td><span aria-hidden="true">Все <em>A</em> есть <em>B</em></span><span class="visually-hidden">все а есть бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">∀x (A(x) ⇒ ¬B(x))</span><span class="visually-hidden">для всех икс: если а от икс, то не бэ от икс</span></code></th>
+<td><span aria-hidden="true">Ни одно <em>A</em> не есть <em>B</em></span><span class="visually-hidden">ни одно а не есть бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">∃x (A(x) &amp; B(x))</span><span class="visually-hidden">существует икс: а от икс и бэ от икс</span></code></th>
+<td><span aria-hidden="true">Некоторые <em>A</em> есть <em>B</em></span><span class="visually-hidden">некоторые а есть бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">∃x (A(x) &amp; ¬B(x))</span><span class="visually-hidden">существует икс: а от икс и не бэ от икс</span></code></th>
+<td><span aria-hidden="true">Некоторые <em>A</em> не есть <em>B</em></span><span class="visually-hidden">некоторые а не есть бэ</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Они остаются базой для сложных математических высказываний, строящихся в основном вложением друг в друга аристотелевых блоков.</p>
+
+<p>Для логических связок, к несчастью, не выработаны общепринятые обозначения. Мы постарались выбрать наиболее выразительные и распространённые. Другие системы обозначений собраны в таблице 3.1.</p>
+
+<div class="table-scroll" role="region" aria-labelledby="tbl-3-1-caption" tabindex="0">
+<table>
+<caption id="tbl-3-1-caption">Таблица 3.1 — Различные обозначения логических связок</caption>
+<thead>
+<tr>
+<th scope="col">Принято здесь</th>
+<th scope="col">Другие обозначения</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code><span aria-hidden="true">A &amp; B</span><span class="visually-hidden">а и бэ</span></code></th>
+<td><span aria-hidden="true">A ∧ B ; A · B ; AB ; A <span lang="en">and</span> B</span><span class="visually-hidden">а «уголок вершиной вверх» бэ; а точка бэ; а бэ слитно; а <span lang="en">and</span> бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">A ∨ B</span><span class="visually-hidden">а или бэ</span></code></th>
+<td><span aria-hidden="true">A + B ; A <span lang="en">or</span> B</span><span class="visually-hidden">а плюс бэ; а <span lang="en">or</span> бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">A ⇒ B</span><span class="visually-hidden">из а следует бэ</span></code></th>
+<td><span aria-hidden="true">A ⊃ B ; A → B ; A <span lang="en">impl</span> B</span><span class="visually-hidden">а «содержит» бэ; а «стрелка вправо» бэ; а <span lang="en">impl</span> бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">A ⇔ B</span><span class="visually-hidden">а эквивалентно бэ</span></code></th>
+<td><span aria-hidden="true">A ≡ B ; A = B ; A ↔ B ; A ∼ B ; A <span lang="en">eq</span> B</span><span class="visually-hidden">а «тождественно равно» бэ; а равно бэ; а «стрелка в обе стороны» бэ; а «тильда» бэ; а <span lang="en">eq</span> бэ</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">¬A</span><span class="visually-hidden">не а</span></code></th>
+<td><span aria-hidden="true">−A ; A̅ ; ∼A ; <span lang="en">not</span> A</span><span class="visually-hidden">минус а; а с надчёркиванием; «тильда» а; <span lang="en">not</span> а</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">∀x A(x)</span><span class="visually-hidden">для всех икс: а от икс</span></code></th>
+<td><span aria-hidden="true">(x)A ; Π_x A ; ∧_x A ; (∀x)A</span><span class="visually-hidden">«икс в скобках» а; «Пи с индексом икс» а; «уголок-и с индексом икс» а; «для всех икс в скобках» а</span></td>
+</tr>
+<tr>
+<th scope="row"><code><span aria-hidden="true">∃x A(x)</span><span class="visually-hidden">существует икс: а от икс</span></code></th>
+<td><span aria-hidden="true">(Ex)A ; Σ_x A ; ∨_x A ; (∃x)A</span><span class="visually-hidden">«Е икс в скобках» а; «Сигма с индексом икс» а; «уголок-или с индексом икс» а; «существует икс в скобках» а</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="ed"><em class="note">Прим. ред. Таблица восстановлена после разрушенного распознавания: возвращены надчёркивание в <code><span aria-hidden="true">A̅</span><span class="visually-hidden">а с надчёркиванием</span></code> и клетки <code><span aria-hidden="true">(∀x)A</span><span class="visually-hidden">«для всех икс» в скобках перед а</span></code>, <code><span aria-hidden="true">(∃x)A</span><span class="visually-hidden">«существует икс» в скобках перед а</span></code>. В исходнике она как плавающий объект попала внутрь списка «Подытожим» и разрывала его; здесь поставлена перед ним. Ссылка «в таблице (3.1)» исправлена на «в таблице 3.1» — это номер таблицы, а не формулы.</em></p>
+
+<p>Подытожим:</p>
+
+<ul>
+<li>Формулы — выражения, обозначающие высказывания.</li>
+<li>Сложные формулы строятся из более простых при помощи логических связок и кванторов.</li>
+<li>Логические связки применяются к высказыванию и в результате дают высказывание.</li>
+<li>Логические связки задаются таблицами истинности.</li>
+<li>Кванторы заставляют переменную пробежать весь унивёрс. Они применяются к формуле с переменной и в результате дают высказывание, не зависящее от данной переменной.</li>
+<li>Ограниченные кванторы выражаются через обычные кванторы и связки: <code><span aria-hidden="true">∀</span><span class="visually-hidden">«для всех»</span></code> — с <code><span aria-hidden="true">⇒</span><span class="visually-hidden">«следует»</span></code>, <code><span aria-hidden="true">∃</span><span class="visually-hidden">«существует»</span></code> — с <code><span aria-hidden="true">&amp;</span><span class="visually-hidden">«и»</span></code>, если явно не оговорено иное.</li>
+<li>Аристотелевы формулы являются деталями, из которых строятся математические формулы.</li>
+</ul>
+
+<h2 id="ex39" style="--acc:#3F3D9E">Упражнения к § 3.9</h2>
+
+<p>Упражнения, позаимствованные у Л. Кэрролла (Льюис Кэрролл, математик и автор логических задач; источник 40 в списке литературы книги), помечены [К].</p>
+
+<p>Перевести на формальный язык.</p>
+
+<p class="ed"><em class="note">Прим. ред. Задание — перевод, а не проверка истинности, поэтому ложные утверждения здесь не ошибка и формулировки сохранены, чтобы не ломать ссылки из других глав. Но видеть их полезно: 3.9.39 ложно (при <span aria-hidden="true">x = 3π/4</span><span class="visually-hidden">икс равен трём пи четвёртым</span> тангенс и котангенс равны, а синус и косинус нет); 3.9.46 ложно (<span aria-hidden="true">1 + i</span><span class="visually-hidden">один плюс мнимая единица</span> не становится действительным ни само, ни после умножения на <span aria-hidden="true">i</span><span class="visually-hidden">мнимую единицу</span>); в 3.9.48 равенство <span aria-hidden="true">x = √(x²)</span><span class="visually-hidden">икс равен корню квадратному из икс в квадрате</span> верно и при нуле, так что «положительным» следовало бы заменить на «неотрицательным»; 3.9.64 верно для метризуемых компактов и ложно для компактных хаусдорфовых пространств вообще; 3.9.42 ложно фактически. Башня степеней в 3.9.44 восстановлена по примеру (1.4), латинская K в пометках заменена кириллической К.</em></p>
+
+<p class="ex"><span class="exn">3.9.1.</span> [К] Ни одному лысому не нужна расчёска.</p>
+<p class="ex"><span class="exn">3.9.2.</span> [К] Все мои тётки не справедливы.</p>
+<p class="ex"><span class="exn">3.9.3.</span> [К] Ни один кошмарный сон не приятен.</p>
+<p class="ex"><span class="exn">3.9.4.</span> [К] Все битвы сопровождаются страшным шумом.</p>
+<p class="ex"><span class="exn">3.9.5.</span> Не все двоечники ленивы.</p>
+<p class="ex"><span class="exn">3.9.6.</span> [К] Каждый, кто упорно работает, добивается успеха.</p>
+<p class="ex"><span class="exn">3.9.7.</span> [К] Ни один бездельник не станет знаменитостью.</p>
+<p class="ex"><span class="exn">3.9.8.</span> [К] Некоторые художники не бездельники.</p>
+<p class="ex"><span class="exn">3.9.9.</span> [К] Некоторые бездельники не художники.</p>
+<p class="ex"><span class="exn">3.9.10.</span> [К] Некоторые подушки мягкие.</p>
+<p class="ex"><span class="exn">3.9.11.</span> [К] Тот, кто может укрощать крокодилов, заслуживает уважения.</p>
+<p class="ex"><span class="exn">3.9.12.</span> [К] Ни одна лягушка не имеет поэтической внешности.</p>
+<p class="ex"><span class="exn">3.9.13.</span> [К] Ни одна тачка не комфортабельна.</p>
+<p class="ex"><span class="exn">3.9.14.</span> [К] Всякий орёл умеет летать.</p>
+<p class="ex"><span class="exn">3.9.15.</span> [К] Некоторые свиньи не умеют летать.</p>
+<p class="ex"><span class="exn">3.9.16.</span> [К] Некоторые свиньи — не орлы.</p>
+<p class="ex"><span class="exn">3.9.17.</span> [К] Ни один судья не справедлив.</p>
+<p class="ex"><span class="exn">3.9.18.</span> [К] Ни один ребёнок не любит прилежно заниматься.</p>
+<p class="ex"><span class="exn">3.9.19.</span> [К] Все шутки для того и предназначены, чтобы смешить людей.</p>
+<p class="ex"><span class="exn">3.9.20.</span> [К] Ни один парламентский акт не шутка.</p>
+<p class="ex"><span class="exn">3.9.21.</span> [К] Пауки ткут паутину.</p>
+<p class="ex"><span class="exn">3.9.22.</span> [К] Все лекарства имеют отвратительный вкус.</p>
+<p class="ex"><span class="exn">3.9.23.</span> [К] Ни у одной ящерицы нет волос.</p>
+<p class="ex"><span class="exn">3.9.24.</span> [К] Все свиньи прожорливы.</p>
+<p class="ex"><span class="exn">3.9.25.</span> [К] Всё, что сделано из золота, драгоценно.</p>
+<p class="ex"><span class="exn">3.9.26.</span> [К] Некоторые секретари — птицы.</p>
+<p class="ex"><span class="exn">3.9.27.</span> [К] Все секретари заняты полезным делом.</p>
+<p class="ex"><span class="exn">3.9.28.</span> [К] Ничто разумное не ставит меня в тупик.</p>
+<p class="ex"><span class="exn">3.9.29.</span> [К] Логика часто ставит меня в тупик.</p>
+<p class="ex"><span class="exn">3.9.30.</span> [К] Некоторые цыплята — не кошки.</p>
+<p class="ex"><span class="exn">3.9.31.</span> Некоторые числа чётные.</p>
+<p class="ex"><span class="exn">3.9.32.</span> Некоторые лекции невозможно понять.</p>
+<p class="ex"><span class="exn">3.9.33.</span> Каждому в Москве не перекланяешься.</p>
+<p class="ex"><span class="exn">3.9.34.</span> Точки A, B, C являются вершинами равнобедренного треугольника.</p>
+<p class="ex"><span class="exn">3.9.35.</span> Иванов, Петров, Васильев и Сидоров могут вытащить эту машину из ямы, если они трезвы и видят бутылку.</p>
+<p class="ex"><span class="exn">3.9.36.</span> Иванов, Петров, Васильев и Сидоров не могут решать квадратные уравнения, даже если они трезвы, но видят бутылку.</p>
+<p class="ex"><span class="exn">3.9.37.</span> Не все углы, синус которых больше <span aria-hidden="true">1/2</span><span class="visually-hidden">одной второй</span>, больше <span aria-hidden="true">π/6</span><span class="visually-hidden">пи шестых</span>.</p>
+<p class="ex"><span class="exn">3.9.38.</span> Квадратные корни из некоторых рациональных чисел иррациональны.</p>
+<p class="ex"><span class="exn">3.9.39.</span> Синус и косинус равны друг другу тогда и только тогда, когда равны тангенс и котангенс.</p>
+<p class="ex"><span class="exn">3.9.40.</span> [К] Когда кто-то поёт больше часа, он надоедает.</p>
+<p class="ex"><span class="exn">3.9.41.</span> Все девочки боятся лягушек и мышей.</p>
+<p class="ex"><span class="exn">3.9.42.</span> Кошки бывают только белые и серые.</p>
+<p class="ex"><span class="exn">3.9.43.</span> [К] Все ораторы либо честолюбивы, либо скучны.</p>
+<p class="ex"><span class="exn">3.9.44.</span> Нет действительных чисел, больших <code><span aria-hidden="true">10^(10^10)</span><span class="visually-hidden">десять в степени «десять в степени десять»</span></code>.</p>
+<p class="ex"><span class="exn">3.9.45.</span> Число делится на 25 в том и только том случае, когда оно делится на 50 либо даёт при делении на 50 остаток 25.</p>
+<p class="ex"><span class="exn">3.9.46.</span> Все комплексные числа действительны или становятся действительными после умножения на <code><span aria-hidden="true">i</span><span class="visually-hidden">мнимую единицу</span></code>.</p>
+<p class="ex"><span class="exn">3.9.47.</span> Не все студенты отличники или спортсмены.</p>
+<p class="ex"><span class="exn">3.9.48.</span> Для того чтобы выполнялось равенство <code><span aria-hidden="true">x = √(x^2)</span><span class="visually-hidden">икс равен корню квадратному из «икс в квадрате»</span></code>, необходимо и достаточно, чтобы <code><span aria-hidden="true">x</span><span class="visually-hidden">икс</span></code> было положительным действительным числом.</p>
+<p class="ex"><span class="exn">3.9.49.</span> Не всё, что рассказывал барон К. Ф. И. фон Мюнхгаузен, ложь.</p>
+<p class="ex"><span class="exn">3.9.50.</span> Некоторые людоеды — плохие люди.</p>
+<p class="ex"><span class="exn">3.9.51.</span> Некоторые финансисты — мошенники, но не все.</p>
+<p class="ex"><span class="exn">3.9.52.</span> Прапорщики любят порядок, и не только они.</p>
+<p class="ex"><span class="exn">3.9.53.</span> Милиционеры замешаны в преступлениях, но не все.</p>
+<p class="ex"><span class="exn">3.9.54.</span> Некоторые замки не отпираются, но запираются.</p>
+<p class="ex"><span class="exn">3.9.55.</span> Если будешь хорошо учиться, поступишь в вуз, а иначе провалишься.</p>
+<p class="ex"><span class="exn">3.9.56.</span> Ничего не вижу, ничего не слышу, ничего не знаю.</p>
+<p class="ex"><span class="exn">3.9.57.</span> Молодо — зелено.</p>
+<p class="ex"><span class="exn">3.9.58.</span> Взялся за гуж — не говори, что не дюж.</p>
+<p class="ex"><span class="exn">3.9.59.</span> Чтобы не быть собакой, достаточно быть кошкой.</p>
+<p class="ex"><span class="exn">3.9.60.</span> Чтобы не быть человеком, необходимо быть свиньёй.</p>
+<p class="ex"><span class="exn">3.9.61.</span> Некоторые кошки поют по ночам.</p>
+<p class="ex"><span class="exn">3.9.62.</span> Некоторые мюмзики не куздры.</p>
+<p class="ex"><span class="exn">3.9.63.</span> Чтобы быть шорьком, достаточно быть хливким.</p>
+<p class="ex"><span class="exn">3.9.64.</span> Все компакты совершенно нормальны.</p>
+<p class="ex"><span class="exn">3.9.65.</span> Три точки A, B, C лежат на одной окружности.</p>
+<p class="ex"><span class="exn">3.9.66.</span> Три точки A, B, C не лежат на одной прямой.</p>
+<p class="ex"><span class="exn">3.9.67.</span> Числа a и b имеют одинаковый знак.</p>
+<p class="ex"><span class="exn">3.9.68.</span> Одно из чисел a, b равно 0.</p>
+<p class="ex"><span class="exn">3.9.69.</span> Ровно одно из чисел a, b равно 0.</p>
+<p class="ex"><span class="exn">3.9.70.</span> Числа a и b имеют разные знаки.</p>
+<p class="ex"><span class="exn">3.9.71.</span> Ромео и Джульетта любят друг друга.</p>
+<p class="ex"><span class="exn">3.9.72.</span> Гамлет и Клавдий ненавидят друг друга.</p>
+<p class="ex"><span class="exn">3.9.73.</span> Мери любила Печорина, но не взаимно.</p>
+<p class="ex"><span class="exn">3.9.74.</span> Чтобы прийти на свадьбу, необходимо приглашение жениха или невесты.</p>
+<p class="ex"><span class="exn">3.9.75.</span> Некоторые лентяи не оптимисты, но жизнелюбы.</p>
+<p class="ex"><span class="exn">3.9.76.</span> Все замки отпираются и запираются.</p>
+<p class="ex"><span class="exn">3.9.77.</span> Никто из нашего класса не поехал в Москву и Париж.</p>
+<p class="ex"><span class="exn">3.9.78.</span> Все мои одноклассники поехали в Москву и Париж.</p>
+<p class="ex"><span class="exn">3.9.79.</span> (Задача семиклассников) <span class="note" role="note">(прим.: Формулировка данной задачи принадлежит ученикам 7-го класса ижевской школы № 29.)</span> Ученик написал утверждение <code><span aria-hidden="true">∀x (От(x) ⇔ Дв(x))</span><span class="visually-hidden">для всех икс: икс — отличник тогда и только тогда, когда икс — двоечник</span></code>, где унивёрсом является множество учеников класса, <code><span aria-hidden="true">От(x)</span><span class="visually-hidden">икс — отличник</span></code> означает “x — отличник”, <code><span aria-hidden="true">Дв(x)</span><span class="visually-hidden">икс — двоечник</span></code> — “x — двоечник”. Может ли оно быть истинно?</p>
 
 </article>
-
-
-</body></html>
+<!--
+Отчёт приёмки (статическая сборка; устройство в этой среде недоступно):
+1) Классификация формул: LaTeX-формул в главе 0 → элементов <math> 0. Выключных Unicode-формул 14
+   (3.7–3.9, 3.14–3.24) → паттерн v3: visually-hidden «Формула 3.N: …» + aria-hidden видимый слой + aria-hidden eq-num.
+   Нумерованные текстовые утверждения 10 (3.1–3.6, 3.10–3.13) — абзацы .statement, номер видим и читаем (не формулы).
+   Инлайн-формулы в <code> — тот же двойной слой (aria-hidden + visually-hidden), включая ячейки таблиц.
+2) Таблиц 4: 3.6а, 3.6б (истинность), 3.2 (аристотелевы), 3.1 (обозначения). Caption + scope col/row +
+   .table-scroll role=region tabindex=0 aria-labelledby — у всех. Ячейки истинности озвучиваются с контекстом («а и бэ: истина»).
+3) Сноски 1–7 раскрыты инлайн (span role=note), «голых» [^N] нет; отсылка [40] раскрыта пояснением; [К] — обычный текст.
+4) Надчёркивания: режим A (Unicode U+0305 в A̅, таблица 3.1 и прим. ред. к ней), пара aria-hidden + visually-hidden
+   «а с надчёркиванием»; CSS-фолбэк .overline-single/.overline-double в стилях, не применён. Двойных надчёркиваний в главе нет.
+5) TTS-решение: MathML не используется; вербализация только через .visually-hidden, без role=math/aria-label, без display:none.
+6) Выполнено при сборке: единственный title; весь текст в article; aria-labelledby; h1→h2 без пропусков;
+   экранирование &lt; &gt; &amp;; отступы body 0 2px 0 4px; html 32px; line-height 1.6; justify+hyphens;
+   max-width/фиксированной width у текстовых контейнеров нет; lang=en на англоязычных токенах; 79 упражнений абзацами.
+7) Требует проверки на целевом устройстве (не выполнялось здесь): рендер U+0305 в Chrome Android (при дефекте — режим B
+   по п. 4.5 глобальной заменой); смоук-тест «Прослушать страницу» (однократность вербализации, тишина декоративного слоя,
+   инлайн-сноски); скролл таблиц на 360px; визуальная проверка 360/412px.
+-->
+</body>
+</html>
